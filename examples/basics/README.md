@@ -12,9 +12,15 @@ Your first Soroban contract - learn the basic structure and deployment process.
 
 ### [02-storage-patterns](./02-storage-patterns/)
 
-Learn how to store and retrieve data in Soroban contracts.
+Learn the fundamentals of storing and retrieving data in Soroban contracts across all three storage types.
 
-**Concepts:** Persistent storage, temporary storage, instance storage
+**Detailed Storage Examples:**
+
+- **[Instance Storage](./instance-storage/)**: Deep dive into the middle ground storage pattern.
+- **[Persistent Storage](./persistent-storage/)**: Learn long-term data persistence.
+- **[Temporary Storage](./temporary_storage/)**: Use case for transient, single-ledger data.
+
+**Concepts:** Persistent storage, temporary storage, instance storage, TTL management, cost optimization
 
 ### [03-authentication](./03-authentication/)
 
@@ -73,7 +79,7 @@ We recommend following the examples in order:
 4. Add events for observability
 5. Learn execution context to write secure proxy and cross-contract calls
 6. Handle errors gracefully
-6. Explore all available data types
+7. Explore all available data types
 
 ## Next Steps
 
