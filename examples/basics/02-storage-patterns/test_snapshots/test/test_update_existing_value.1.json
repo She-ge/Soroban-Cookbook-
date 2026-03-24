@@ -145,6 +145,36 @@
       "event": {
         "ext": "v0",
         "contract_id": "0000000000000000000000000000000000000000000000000000000000000001",
+        "type_": "contract",
+        "body": {
+          "v0": {
+            "topics": [
+              {
+                "symbol": "persist"
+              },
+              {
+                "symbol": "set"
+              }
+            ],
+            "data": {
+              "vec": [
+                {
+                  "symbol": "counter"
+                },
+                {
+                  "u64": 10
+                }
+              ]
+            }
+          }
+        }
+      },
+      "failed_call": false
+    },
+    {
+      "event": {
+        "ext": "v0",
+        "contract_id": "0000000000000000000000000000000000000000000000000000000000000001",
         "type_": "diagnostic",
         "body": {
           "v0": {
@@ -248,6 +278,36 @@
       "event": {
         "ext": "v0",
         "contract_id": "0000000000000000000000000000000000000000000000000000000000000001",
+        "type_": "contract",
+        "body": {
+          "v0": {
+            "topics": [
+              {
+                "symbol": "persist"
+              },
+              {
+                "symbol": "set"
+              }
+            ],
+            "data": {
+              "vec": [
+                {
+                  "symbol": "counter"
+                },
+                {
+                  "u64": 20
+                }
+              ]
+            }
+          }
+        }
+      },
+      "failed_call": false
+    },
+    {
+      "event": {
+        "ext": "v0",
+        "contract_id": "0000000000000000000000000000000000000000000000000000000000000001",
         "type_": "diagnostic",
         "body": {
           "v0": {
@@ -330,6 +390,36 @@
               },
               {
                 "symbol": "set_persistent"
+              }
+            ],
+            "data": {
+              "vec": [
+                {
+                  "symbol": "counter"
+                },
+                {
+                  "u64": 30
+                }
+              ]
+            }
+          }
+        }
+      },
+      "failed_call": false
+    },
+    {
+      "event": {
+        "ext": "v0",
+        "contract_id": "0000000000000000000000000000000000000000000000000000000000000001",
+        "type_": "contract",
+        "body": {
+          "v0": {
+            "topics": [
+              {
+                "symbol": "persist"
+              },
+              {
+                "symbol": "set"
               }
             ],
             "data": {

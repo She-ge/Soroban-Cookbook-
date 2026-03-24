@@ -1,44 +1,203 @@
 #![cfg(test)]
-extern crate std;
 
 use super::*;
-use soroban_sdk::{
-    testutils::{Address as _, AuthorizedFunction},
-    vec, Address, Env, IntoVal, Symbol,
-};
+use soroban_sdk::{symbol_short, testutils::Address as _, vec, Env};
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+fn setup_initialized(env: &Env) -> (AuthContractClient<'_>, Address) {
+    let contract_id = env.register_contract(None, AuthContract);
+    let client = AuthContractClient::new(env, &contract_id);
+    let admin = Address::generate(env);
+    env.mock_all_auths();
+    client.initialize(&admin);
+    (client, admin)
+}
+
+// ---------------------------------------------------------------------------
+// Initialization
+// ---------------------------------------------------------------------------
 
 #[test]
-fn test_auth_success() {
+fn test_initialize_sets_admin() {
     let env = Env::default();
+    let (client, admin) = setup_initialized(&env);
+    assert_eq!(client.get_admin(), Some(admin));
+}
 
-    // 1. Register the contract and create a client
+#[test]
+#[should_panic(expected = "Error(Contract, #3)")]
+fn test_initialize_twice_fails() {
+    let env = Env::default();
+    let (client, admin) = setup_initialized(&env);
+    client.initialize(&admin);
+}
+
+// ---------------------------------------------------------------------------
+// Admin-only actions
+// ---------------------------------------------------------------------------
+
+#[test]
+fn test_admin_action_doubles_value() {
+    let env = Env::default();
+    let (client, admin) = setup_initialized(&env);
+    assert_eq!(client.admin_action(&admin, &10), 20);
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #2)")]
+fn test_admin_action_non_admin_fails() {
+    let env = Env::default();
+    let (client, _admin) = setup_initialized(&env);
+    let attacker = Address::generate(&env);
+    client.admin_action(&attacker, &10);
+}
+
+#[test]
+fn test_set_balance_admin_only() {
+    let env = Env::default();
+    let (client, admin) = setup_initialized(&env);
+    let user = Address::generate(&env);
+    client.set_balance(&admin, &user, &5000);
+    assert_eq!(client.get_balance(&user), 5000);
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #2)")]
+fn test_set_balance_non_admin_fails() {
+    let env = Env::default();
+    let (client, _admin) = setup_initialized(&env);
+    let non_admin = Address::generate(&env);
+    let user = Address::generate(&env);
+    client.set_balance(&non_admin, &user, &5000);
+}
+
+// ---------------------------------------------------------------------------
+// Transfer
+// ---------------------------------------------------------------------------
+
+#[test]
+fn test_transfer_updates_balances() {
+    let env = Env::default();
+    let (client, admin) = setup_initialized(&env);
+    let user1 = Address::generate(&env);
+    let user2 = Address::generate(&env);
+
+    client.set_balance(&admin, &user1, &1000);
+    client.transfer(&user1, &user2, &300);
+
+    assert_eq!(client.get_balance(&user1), 700);
+    assert_eq!(client.get_balance(&user2), 300);
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #4)")]
+fn test_transfer_insufficient_balance_fails() {
+    let env = Env::default();
+    let (client, admin) = setup_initialized(&env);
+    let user1 = Address::generate(&env);
+    let user2 = Address::generate(&env);
+
+    client.set_balance(&admin, &user1, &100);
+    client.transfer(&user1, &user2, &500);
+}
+
+// ---------------------------------------------------------------------------
+// Allowance (approve + transfer_from)
+// ---------------------------------------------------------------------------
+
+#[test]
+fn test_approve_and_transfer_from() {
+    let env = Env::default();
+    let (client, admin) = setup_initialized(&env);
+    let owner = Address::generate(&env);
+    let spender = Address::generate(&env);
+    let recipient = Address::generate(&env);
+
+    client.set_balance(&admin, &owner, &1000);
+    client.approve(&owner, &spender, &500);
+    client.transfer_from(&spender, &owner, &recipient, &200);
+
+    assert_eq!(client.get_balance(&owner), 800);
+    assert_eq!(client.get_balance(&recipient), 200);
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #1)")]
+fn test_transfer_from_exceeds_allowance() {
+    let env = Env::default();
+    let (client, admin) = setup_initialized(&env);
+    let owner = Address::generate(&env);
+    let spender = Address::generate(&env);
+    let recipient = Address::generate(&env);
+
+    client.set_balance(&admin, &owner, &1000);
+    client.approve(&owner, &spender, &100);
+    client.transfer_from(&spender, &owner, &recipient, &200);
+}
+
+// ---------------------------------------------------------------------------
+// Multi-sig
+// ---------------------------------------------------------------------------
+
+#[test]
+fn test_multi_sig_adds_signer_count() {
+    let env = Env::default();
     let contract_id = env.register_contract(None, AuthContract);
     let client = AuthContractClient::new(&env, &contract_id);
-
-    // 2. Generate a random address to act as our user
-    let user = Address::generate(&env);
-
-    // 3. Enable auth mocking so we don't need real signatures for the test
     env.mock_all_auths();
 
-    // 4. Call the function
-    client.secure_action(&user);
+    let signers = vec![
+        &env,
+        Address::generate(&env),
+        Address::generate(&env),
+        Address::generate(&env),
+    ];
+    assert_eq!(client.multi_sig_action(&signers, &10), 13);
+}
 
-    // 5. Verify the authentication recorded by the host
-    let auths = env.auths();
-    let (authorized_address, invocation) = &auths[0];
+// ---------------------------------------------------------------------------
+// Secure operation
+// ---------------------------------------------------------------------------
 
-    // Check that the correct user was the one being asked for auth
-    assert_eq!(authorized_address, &user);
+#[test]
+fn test_secure_operation_success() {
+    let env = Env::default();
+    let contract_id = env.register_contract(None, AuthContract);
+    let client = AuthContractClient::new(&env, &contract_id);
+    env.mock_all_auths();
 
-    // Verify the structure of the call.
-    // In SDK 21.7.7, Contract auth is a tuple: (Address, Symbol, Vec<Val>)
-    assert_eq!(
-        invocation.function,
-        AuthorizedFunction::Contract((
-            contract_id.clone(),
-            Symbol::new(&env, "secure_action"),
-            vec![&env, user.into_val(&env)],
-        ))
-    );
+    let user = Address::generate(&env);
+    let result = client.secure_operation(&user, &symbol_short!("action"));
+    assert_eq!(result.get(0).unwrap(), symbol_short!("success"));
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #1)")]
+fn test_secure_operation_invalid_fails() {
+    let env = Env::default();
+    let contract_id = env.register_contract(None, AuthContract);
+    let client = AuthContractClient::new(&env, &contract_id);
+    env.mock_all_auths();
+
+    let user = Address::generate(&env);
+    client.secure_operation(&user, &symbol_short!("invalid"));
+}
+
+// ---------------------------------------------------------------------------
+// Emit event
+// ---------------------------------------------------------------------------
+
+#[test]
+fn test_emit_event() {
+    let env = Env::default();
+    let contract_id = env.register_contract(None, AuthContract);
+    let client = AuthContractClient::new(&env, &contract_id);
+    env.mock_all_auths();
+
+    let user = Address::generate(&env);
+    // Should not panic.
+    client.emit_event(&user, &symbol_short!("hello"));
 }

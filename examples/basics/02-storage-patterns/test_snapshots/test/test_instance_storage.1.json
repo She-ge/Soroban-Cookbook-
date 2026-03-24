@@ -163,6 +163,36 @@
       "event": {
         "ext": "v0",
         "contract_id": "0000000000000000000000000000000000000000000000000000000000000001",
+        "type_": "contract",
+        "body": {
+          "v0": {
+            "topics": [
+              {
+                "symbol": "instance"
+              },
+              {
+                "symbol": "set"
+              }
+            ],
+            "data": {
+              "vec": [
+                {
+                  "symbol": "config"
+                },
+                {
+                  "u64": 999
+                }
+              ]
+            }
+          }
+        }
+      },
+      "failed_call": false
+    },
+    {
+      "event": {
+        "ext": "v0",
+        "contract_id": "0000000000000000000000000000000000000000000000000000000000000001",
         "type_": "diagnostic",
         "body": {
           "v0": {
@@ -294,6 +324,29 @@
               },
               {
                 "symbol": "remove_instance"
+              }
+            ],
+            "data": {
+              "symbol": "config"
+            }
+          }
+        }
+      },
+      "failed_call": false
+    },
+    {
+      "event": {
+        "ext": "v0",
+        "contract_id": "0000000000000000000000000000000000000000000000000000000000000001",
+        "type_": "contract",
+        "body": {
+          "v0": {
+            "topics": [
+              {
+                "symbol": "instance"
+              },
+              {
+                "symbol": "remove"
               }
             ],
             "data": {
