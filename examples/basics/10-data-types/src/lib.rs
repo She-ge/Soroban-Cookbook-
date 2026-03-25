@@ -379,6 +379,60 @@ impl DataTypesContract {
     pub fn create_string_from_literal(env: Env) -> String {
         String::from_str(&env, "Hello, Soroban!")
     }
+
+    // ============================================================================
+    // STORAGE ROUND-TRIPS
+    // ============================================================================
+
+    /// Persist a u32 value and read it back.
+    pub fn put_u32(env: Env, value: u32) {
+        env.storage().instance().set(&symbol_short!("u32"), &value);
+    }
+
+    pub fn get_u32(env: Env) -> u32 {
+        env.storage()
+            .instance()
+            .get(&symbol_short!("u32"))
+            .unwrap_or(0)
+    }
+
+    /// Persist an i128 value and read it back.
+    pub fn put_i128(env: Env, value: i128) {
+        env.storage()
+            .instance()
+            .set(&symbol_short!("i128"), &value);
+    }
+
+    pub fn get_i128(env: Env) -> i128 {
+        env.storage()
+            .instance()
+            .get(&symbol_short!("i128"))
+            .unwrap_or(0)
+    }
+
+    /// Persist a Symbol and read it back.
+    pub fn put_symbol(env: Env, value: Symbol) {
+        env.storage().instance().set(&symbol_short!("sym"), &value);
+    }
+
+    pub fn get_symbol(env: Env) -> Symbol {
+        env.storage()
+            .instance()
+            .get(&symbol_short!("sym"))
+            .unwrap_or_else(|| symbol_short!("none"))
+    }
+
+    /// Persist a Vec<i128> and read it back.
+    pub fn put_vec(env: Env, value: Vec<i128>) {
+        env.storage().instance().set(&symbol_short!("vec"), &value);
+    }
+
+    pub fn get_vec(env: Env) -> Vec<i128> {
+        env.storage()
+            .instance()
+            .get(&symbol_short!("vec"))
+            .unwrap_or_else(|| vec![&env])
+    }
 }
 
 // Pull in the test module
