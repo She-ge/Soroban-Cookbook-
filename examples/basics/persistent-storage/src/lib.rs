@@ -97,7 +97,7 @@ impl PersistentStorageContract {
 
         // Use checked_add to prevent overflow
         count = count.checked_add(1).expect("counter overflow");
-        
+
         env.storage().persistent().set(&key, &count);
         env.storage().persistent().extend_ttl(&key, 2000, 10000);
 
