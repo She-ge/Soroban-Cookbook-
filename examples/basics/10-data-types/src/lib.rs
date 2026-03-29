@@ -343,16 +343,13 @@ impl DataTypesContract {
     pub fn bytes_to_bytesn(env: Env, data: Bytes) -> BytesN<32> {
         // Create a 32-byte array from the Bytes
         let mut array = [0u8; 32];
-        let len = data.len() as usize;
-        if len != 32 {
+        if data.len() as usize != 32 {
             panic!("Bytes must be exactly 32 bytes");
         }
 
         // Copy bytes into the array
         for (i, byte) in array.iter_mut().enumerate() {
-            *byte = data.get(i as u32).unwrap_or_else(|| {
-                panic!("Failed to read byte at index {}", i);
-            });
+            *byte = data.get(i as u32).unwrap();
         }
 
         BytesN::<32>::from_array(&env, &array)
