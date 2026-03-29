@@ -8,8 +8,8 @@
 #![cfg(not(target_arch = "wasm32"))]
 #![cfg(test)]
 
-use soroban_sdk::{symbol_short, testutils::Address as _, Address, Env, IntoVal, Symbol, Vec};
 use multi_party_auth;
+use soroban_sdk::{symbol_short, testutils::Address as _, Address, Env, IntoVal, Symbol, Vec};
 
 // ---------------------------------------------------------------------------
 // Test 1: Multi-Contract Workflow — Hello World + Storage + Events counter
@@ -623,10 +623,8 @@ fn test_multi_party_auth_2_of_3() {
     let signer2 = Address::generate(&env);
     let signer3 = Address::generate(&env);
 
-    let all_signers = soroban_sdk::Vec::from_array(
-        &env,
-        [signer1.clone(), signer2.clone(), signer3.clone()],
-    );
+    let all_signers =
+        soroban_sdk::Vec::from_array(&env, [signer1.clone(), signer2.clone(), signer3.clone()]);
     let proposal_id = Symbol::new(&env, "prop_2of3");
 
     // Setup 2-of-3 threshold
@@ -661,19 +659,15 @@ fn test_multi_party_auth_3_of_3() {
     let signer2 = Address::generate(&env);
     let signer3 = Address::generate(&env);
 
-    let all_signers = soroban_sdk::Vec::from_array(
-        &env,
-        [signer1.clone(), signer2.clone(), signer3.clone()],
-    );
+    let all_signers =
+        soroban_sdk::Vec::from_array(&env, [signer1.clone(), signer2.clone(), signer3.clone()]);
     let proposal_id = Symbol::new(&env, "prop_3of3");
 
     // Setup 3-of-3 threshold — all must approve
     client.setup_proposal(&proposal_id, &3u32, &all_signers);
 
-    let approvers = soroban_sdk::Vec::from_array(
-        &env,
-        [signer1.clone(), signer2.clone(), signer3.clone()],
-    );
+    let approvers =
+        soroban_sdk::Vec::from_array(&env, [signer1.clone(), signer2.clone(), signer3.clone()]);
     client.proposal_approval(&proposal_id, &approvers);
 
     let auths = env.auths();
