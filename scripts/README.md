@@ -6,7 +6,7 @@ Helper scripts for building, testing, and deploying Soroban contracts.
 
 ### 🏗️ build.sh
 
-Build Soroban smart contracts.
+Build Soroban smart contracts to optimized WASM.
 
 **Usage:**
 
@@ -20,10 +20,11 @@ Build Soroban smart contracts.
 
 **Features:**
 
-- Runs tests before building
-- Compiles to WASM
-- Shows output file size
-- Summarizes results
+- Compiles to optimized WASM (release mode)
+- Shows output file size for each contract
+- Comprehensive error handling
+- Builds all examples or specific contracts
+- Summarizes build results
 
 ### 🧪 test.sh
 
