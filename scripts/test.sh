@@ -1,8 +1,21 @@
 #!/bin/bash
 
 # Test Script for Soroban Contracts
-# Usage: ./scripts/test.sh [example-path]
-# Example: ./scripts/test.sh examples/basics/01-hello-world
+# Usage: ./scripts/test.sh [OPTIONS] [example-path]
+# 
+# Options:
+#   -v, --verbose     Show detailed test output
+#   -c, --clippy      Run clippy linting
+#   -f, --format      Check code formatting
+#   --coverage        Generate coverage reports
+#   -a, --all         Run clippy and format checks
+#   -h, --help        Show this help message
+#
+# Examples:
+#   ./scripts/test.sh                                    # Test all examples
+#   ./scripts/test.sh examples/basics/01-hello-world     # Test specific example
+#   ./scripts/test.sh --coverage examples/basics/        # Test with coverage
+#   ./scripts/test.sh -a                                 # Test all with full checks
 
 set -e
 
@@ -27,6 +40,27 @@ print_error() {
 
 print_test() {
     echo -e "${BLUE}[TEST]${NC} $1"
+}
+
+# Function to show help
+show_help() {
+    echo "Test Script for Soroban Contracts"
+    echo ""
+    echo "Usage: ./scripts/test.sh [OPTIONS] [example-path]"
+    echo ""
+    echo "Options:"
+    echo "  -v, --verbose     Show detailed test output"
+    echo "  -c, --clippy      Run clippy linting"
+    echo "  -f, --format      Check code formatting"
+    echo "  --coverage        Generate coverage reports"
+    echo "  -a, --all         Run clippy and format checks"
+    echo "  -h, --help        Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  ./scripts/test.sh                                    # Test all examples"
+    echo "  ./scripts/test.sh examples/basics/01-hello-world     # Test specific example"
+    echo "  ./scripts/test.sh --coverage examples/basics/        # Test with coverage"
+    echo "  ./scripts/test.sh -a                                 # Test all with full checks"
 }
 
 # Check if Rust is installed
@@ -112,10 +146,39 @@ check_format() {
     fi
 }
 
+# Function to run coverage
+run_coverage() {
+    local contract_path=$1
+    
+    print_test "Running coverage on: $contract_path"
+    
+    # Check if cargo-tarpaulin is installed
+    if ! command -v cargo-tarpaulin &> /dev/null; then
+        print_warn "cargo-tarpaulin not found. Installing..."
+        if ! cargo install cargo-tarpaulin; then
+            print_error "Failed to install cargo-tarpaulin"
+            return 1
+        fi
+    fi
+    
+    cd "$contract_path"
+    
+    if cargo tarpaulin --out Html --output-dir coverage 2>&1; then
+        print_info "✓ Coverage report generated in $contract_path/coverage/"
+        cd - > /dev/null
+        return 0
+    else
+        print_error "✗ Coverage generation failed"
+        cd - > /dev/null
+        return 1
+    fi
+}
+
 # Parse arguments
 VERBOSE=false
 RUN_CLIPPY=false
 CHECK_FORMAT=false
+RUN_COVERAGE=false
 CONTRACT_PATH=""
 
 while [[ $# -gt 0 ]]; do
@@ -132,10 +195,18 @@ while [[ $# -gt 0 ]]; do
             CHECK_FORMAT=true
             shift
             ;;
+        --coverage)
+            RUN_COVERAGE=true
+            shift
+            ;;
         -a|--all)
             RUN_CLIPPY=true
             CHECK_FORMAT=true
             shift
+            ;;
+        -h|--help)
+            show_help
+            exit 0
             ;;
         *)
             CONTRACT_PATH=$1
@@ -175,6 +246,13 @@ if [ -z "$CONTRACT_PATH" ]; then
                 fi
             fi
             
+            if [ "$RUN_COVERAGE" = true ]; then
+                if ! run_coverage "$example_dir"; then
+                    failed=$((failed + 1))
+                    continue
+                fi
+            fi
+            
             echo ""
         fi
     done
@@ -200,5 +278,9 @@ else
     
     if [ "$CHECK_FORMAT" = true ]; then
         check_format "$CONTRACT_PATH"
+    fi
+    
+    if [ "$RUN_COVERAGE" = true ]; then
+        run_coverage "$CONTRACT_PATH"
     fi
 fi
