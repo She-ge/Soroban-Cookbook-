@@ -112,10 +112,12 @@ Deploy Soroban contracts to testnet or mainnet.
 
 **Features:**
 
-- Builds contract before deploying
-- Verifies network configuration
-- Funds testnet accounts automatically
-- Saves contract ID to `.contract-id-{network}` file
+- Validates network selection (`testnet` or `mainnet`)
+- Builds contract with `stellar contract build`
+- Optimizes WASM with `stellar contract optimize`
+- Funds testnet accounts automatically via friendbot
+- Deploys with `stellar contract deploy`
+- Saves contract ID to `.contract-id-{network}` file inside the contract directory
 
 ## 🔧 Requirements
 
@@ -134,8 +136,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # Add WASM target
 rustup target add wasm32-unknown-unknown
 
-# Install Soroban CLI
-cargo install --locked soroban-cli
+# Install Stellar CLI
+cargo install --locked stellar-cli --version 22.1.0
 ```
 
 ## 📋 Common Use Cases
