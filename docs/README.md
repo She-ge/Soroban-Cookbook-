@@ -25,7 +25,9 @@ Welcome to the Soroban Cookbook documentation. Use this index to find what you n
 - [Quick Reference](./quick-reference.md) — Cheat sheet for common Soroban patterns
 - [Common Patterns](./common-patterns.md) — Reusable patterns with when-to-use guidance
 - [Glossary](./glossary.md) — Key terms and concepts
-- [Troubleshooting](./troubleshooting.md) — Build errors, test failures, deployment issues, and workarounds
+<<<<<<< HEAD
+-- [Troubleshooting](./troubleshooting.md) — Build errors, test failures, deployment issues, and workarounds
+-- [Dependabot Setup](./dependabot-setup.md) — Automated dependency update configuration
 
 ### Architecture Decision Records
 
