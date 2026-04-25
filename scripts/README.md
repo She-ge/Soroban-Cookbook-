@@ -1,221 +1,127 @@
-# Utility Scripts
+# 🛠️ Utility Scripts
 
-Helper scripts for building, testing, and deploying Soroban contracts.
-
-## Available Scripts
-
-### 🏗️ build.sh
-
-Build Soroban smart contracts to optimized WASM.
-
-**Usage:**
-
-```bash
-# Build all examples
-./scripts/build.sh
-
-# Build specific example
-./scripts/build.sh examples/basics/01-hello-world
-```
-
-**Features:**
-
-- Compiles to optimized WASM (release mode)
-- Shows output file size for each contract
-- Comprehensive error handling
-- Builds all examples or specific contracts
-- Summarizes build results
-
-### 🧪 test.sh
-
-Run tests for Soroban contracts with comprehensive options and coverage reporting.
-
-**Usage:**
-
-```bash
-# Test all examples
-./scripts/test.sh
-
-# Test specific example
-./scripts/test.sh examples/basics/01-hello-world
-
-# Test specific directory
-./scripts/test.sh examples/basics
-
-# Test with verbose output
-./scripts/test.sh -v examples/basics/01-hello-world
-
-# Test with clippy
-./scripts/test.sh -c examples/basics/01-hello-world
-
-# Test with format check
-./scripts/test.sh -f examples/basics/01-hello-world
-
-# Test with all checks
-./scripts/test.sh -a examples/basics/01-hello-world
-
-# Generate coverage report
-./scripts/test.sh --coverage
-
-# Show help
-./scripts/test.sh --help
-```
-
-**Options:**
-
-- `-v, --verbose` - Show detailed test output
-- `-c, --clippy` - Run clippy linter
-- `-f, --format` - Check code formatting
-- `-a, --all` - Run all checks (tests, clippy, format)
-- `--coverage` - Generate coverage report using cargo-tarpaulin
-- `-h, --help` - Show help message
-
-**Features:**
-
-- **Workspace Testing**: Uses `cargo test --workspace` for efficient testing
-- **Coverage Reporting**: Generates XML coverage reports compatible with Codecov
-- **Error Handling**: Comprehensive error checking and informative messages
-- **Flexible Targeting**: Test individual contracts, directories, or entire workspace
-- **Performance Optimized**: Uses workspace-level testing when possible
-
-### 🚀 deploy.sh
-
-Deploy Soroban contracts to testnet or mainnet.
-
-**Usage:**
-
-```bash
-# Deploy to testnet
-./scripts/deploy.sh examples/basics/01-hello-world testnet alice
-
-# Deploy to mainnet
-./scripts/deploy.sh examples/basics/01-hello-world mainnet my-key
-```
-
-**Arguments:**
-
-1. `contract-path` - Path to the contract directory
-2. `network` - Network name (testnet/mainnet)
-3. `identity` - Identity/key name (optional, defaults to "default")
-
-**Features:**
-
-- Builds contract before deploying
-- Verifies network configuration
-- Funds testnet accounts automatically
-- Saves contract ID to `.contract-id-{network}` file
-
-## 🔧 Requirements
-
-All scripts require:
-
-- Rust and Cargo installed
-- `wasm32-unknown-unknown` target added
-- Soroban CLI installed
-
-**Install requirements:**
-
-```bash
-# Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# Add WASM target
-rustup target add wasm32-unknown-unknown
-
-# Install Soroban CLI
-cargo install --locked soroban-cli
-```
-
-## 📝 Examples
-
-### Build and Test Workflow
-
-```bash
-# 1. Test the contract
-./scripts/test.sh -a examples/basics/01-hello-world
-
-# 2. Build the contract
-./scripts/build.sh examples/basics/01-hello-world
-
-# 3. Deploy to testnet
-./scripts/deploy.sh examples/basics/01-hello-world testnet alice
-```
-
-### Continuous Integration Workflow
-
-```bash
-# Run on all examples
-for example in examples/*/*/; do
-    echo "Testing $example"
-    ./scripts/test.sh -a "$example"
-done
-```
-
-## 🐛 Troubleshooting
-
-### Script Not Executable
-
-```bash
-chmod +x scripts/*.sh
-```
-
-### Network Not Configured
-
-```bash
-# Add testnet
-soroban network add \
-  --global testnet \
-  --rpc-url https://soroban-testnet.stellar.org:443 \
-  --network-passphrase "Test SDF Network ; September 2015"
-```
-
-### Identity Not Found
-
-```bash
-# Generate new identity
-soroban keys generate alice --network testnet
-
-# Fund testnet account
-soroban keys fund alice --network testnet
-```
-
-## 💡 Tips
-
-1. **Always test before deploying**
-
-   ```bash
-   ./scripts/test.sh -a examples/my-contract
-   ```
-
-2. **Use testnet first**
-
-   ```bash
-   ./scripts/deploy.sh examples/my-contract testnet alice
-   ```
-
-3. **Verify deployment**
-
-   ```bash
-   soroban contract invoke \
-     --id $(cat examples/my-contract/.contract-id-testnet) \
-     --source alice \
-     --network testnet \
-     -- \
-     my_function
-   ```
-
-4. **Keep contract IDs safe**
-   - Contract IDs are saved in `.contract-id-{network}` files
-   - Add to `.gitignore` for sensitive deployments
-   - Use environment variables in production
-
-## 🔗 Related Documentation
-
-- [Getting Started Guide](../guides/getting-started.md)
-- [Testing Guide](../guides/testing.md)
-- [Deployment Guide](../guides/deployment.md)
-- [Soroban CLI Reference](https://developers.stellar.org/docs/tools/developer-tools/cli)
+This directory contains a suite of automation scripts designed to streamline the Soroban smart contract development lifecycle. These utilities handle building, testing, and deploying contracts with consistent patterns and robust error handling.
 
 ---
 
-**Automate your Soroban development workflow!** 🚀
+## 🏗️ build.sh
+
+The `build.sh` script compiles Soroban contracts into optimized WebAssembly (WASM) files suitable for deployment.
+
+### 📋 Parameters
+
+| Parameter | Type | Required | Description | Default |
+|-----------|------|----------|-------------|---------|
+| `example-path` | String | No | Relative path to a contract directory (e.g., `examples/basics/01-hello-world`) | All examples |
+
+### 🚀 Usage Examples
+
+```bash
+# Build a specific contract
+./scripts/build.sh examples/basics/01-hello-world
+
+# Build all contracts in the repository
+./scripts/build.sh
+```
+
+### 💡 Common Use Cases
+
+*   **Development Iteration**: Run for a single contract to quickly verify it compiles after changes.
+*   **Final Release Prep**: Build all contracts to check total binary sizes and ensure workspace-wide consistency.
+*   **CI/CD Pipeline**: Integrate into automated workflows to generate artifacts for deployment.
+
+---
+
+## 🧪 test.sh
+
+A comprehensive testing utility that manages unit tests, code linting (Clippy), formatting checks, and coverage reports.
+
+### 📋 Parameters
+
+| Flag | Long Form | Description |
+|------|-----------|-------------|
+| `-v` | `--verbose` | Shows detailed test output and stdout from tests |
+| `-c` | `--clippy` | Runs the Clippy linter to find common mistakes and improve code quality |
+| `-f` | `--format` | Checks if the code adheres to the standard Rust formatting |
+| `-a` | `--all` | Runs all checks: Unit tests, Clippy, and Formatting check |
+| `--coverage`| N/A | Generates a code coverage report using `cargo-tarpaulin` |
+| `-h` | `--help` | Displays the help message |
+
+> [!NOTE]
+> You can also provide an optional positional argument `<example-path>` to target a specific contract or category.
+
+### 🚀 Usage Examples
+
+```bash
+# Run tests for all examples (quiet mode)
+./scripts/test.sh
+
+# Run all checks (test + lintish) for a specific example
+./scripts/test.sh -a examples/basics/02-auth
+
+# Generate a coverage report for the entire workspace
+./scripts/test.sh --coverage
+```
+
+### 💡 Common Use Cases
+
+*   **Pre-Commit Validation**: Use `./scripts/test.sh -a` to ensure code is clean and bug-free before pushing.
+*   **Feature Coverage**: Run with `--coverage` after adding a new contract to ensure all logic paths are exercised.
+*   **Debugging**: Use `-v` to see `println!` output from your smart contract unit tests.
+
+---
+
+## 🚀 deploy.sh
+
+Automates the deployment process, including building, network verification, and account funding (on testnet).
+
+### 📋 Parameters
+
+| Parameter | Position | Required | Description | Default |
+|-----------|----------|----------|-------------|---------|
+| `contract-path`| 1 | Yes | Path to the contract directory | N/A |
+| `network` | 2 | Yes | Target network (`testnet` or `mainnet`) | N/A |
+| `identity` | 3 | No | Secret key identity name from Soroban CLI | `default` |
+
+### 🚀 Usage Examples
+
+```bash
+# Deploy to testnet using the alice identity
+./scripts/deploy.sh examples/basics/01-hello-world testnet alice
+
+# Deploy to mainnet (requires pre-configured mainnet network and keys)
+./scripts/deploy.sh examples/basics/01-hello-world mainnet my-prod-key
+```
+
+### 💡 Common Use Cases
+
+*   **Local testing staging**: Deploy to `testnet` to verify contract behavior in a real-world environment before mainnet.
+*   **New Developer Onboarding**: Allows new team members to deploy examples without needing to remember long Soroban CLI flags.
+
+---
+
+## 🔧 Prerequisites
+
+Ensure you have the following installed before running these scripts:
+
+- **Rust & Cargo**: [rustup.rs](https://rustup.rs/)
+- **WASM Target**: `rustup target add wasm32-unknown-unknown`
+- **Soroban CLI**: `cargo install --locked soroban-cli`
+- **Tarpaulin** (Optional, for coverage): `cargo install cargo-tarpaulin`
+
+## 📝 Troubleshooting
+
+1.  **Permission Denied**: If you get a "permission denied" error, make the scripts executable:
+    ```bash
+    chmod +x scripts/*.sh
+    ```
+2.  **Network Not Found**: Ensure you have added the network to your Soroban CLI config:
+    ```bash
+    soroban network add --global testnet \
+      --rpc-url https://soroban-testnet.stellar.org:443 \
+      --network-passphrase "Test SDF Network ; September 2015"
+    ```
+
+---
+
+*Part of the [Soroban Cookbook](https://github.com/Soroban-Cookbook/Soroban-Cookbook-) - Streamlining Stellar Smart Contract Development.*
