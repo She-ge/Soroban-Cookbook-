@@ -48,3 +48,9 @@
 
 - [How to Contribute](./CONTRIBUTING.md)
 - [Code of Conduct](./CODE_OF_CONDUCT.md)
+
+# Architecture Decisions
+
+- [ADR Index](./adr/README.md)
+  - [ADR-001: Record Architecture Decisions](./adr/001-record-architecture-decisions.md)
+  - [ADR Template](./adr/template.md)

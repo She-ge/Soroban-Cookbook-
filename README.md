@@ -2,9 +2,10 @@
 
 **A comprehensive guide to building smart contracts on Stellar with Soroban**
 
-[![CI](https://github.com/Soroban-Cookbook/Soroban-Cookbook/actions/workflows/ci.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook/actions/workflows/ci.yml)
-[![Test and Lint](https://github.com/Soroban-Cookbook/Soroban-Cookbook/actions/workflows/test.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/Soroban-Cookbook/Soroban-Cookbook/branch/main/graph/badge.svg)](https://codecov.io/gh/Soroban-Cookbook/Soroban-Cookbook)
+[![CI](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/ci.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/ci.yml)
+[![Test and Lint](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/test.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/test.yml)
+[![Security Audit](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/security-audit.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/security-audit.yml)
+[![codecov](https://codecov.io/gh/Soroban-Cookbook/Soroban-Cookbook-/branch/main/graph/badge.svg)](https://codecov.io/gh/Soroban-Cookbook/Soroban-Cookbook-)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Table of Contents
