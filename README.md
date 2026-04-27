@@ -231,4 +231,4 @@ This project is licensed under the MIT License — see the [LICENSE](./LICENSE) 
 
 ---
 
-Built by the community · Powered by Stellar · Written in Rust
+Built by the community · Powered by Stellar · Written in Rust.
