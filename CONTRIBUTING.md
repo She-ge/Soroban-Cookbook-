@@ -63,9 +63,15 @@ Naming: Follow standard Rust naming conventions.
 
 Formatting: Always run cargo fmt before committing.
 
-Linting: Ensure cargo clippy passes with no warnings (-D warnings).
+To maintain a consistent and high-quality codebase, please follow our [Style Guide](./docs/style-guide.md).
 
-Error Handling: Use custom errors with #[contracterror] for meaningful error messages.
+Key highlights:
+- **Naming**: Follow standard [Rust naming conventions](https://rust-lang.github.io/api-guidelines/naming.html) and our specific contract patterns.
+- **Formatting**: Always run `cargo fmt` before committing.
+- **Linting**: Ensure `cargo clippy` passes with no warnings (`-D warnings`).
+- **Documentation**: Use `///` for public interface docs and `//!` for module-level explanations.
+- **Testing**: Every example must include comprehensive unit tests.
+- **No-std**: All contract code must be `#![no_std]`.
 
 Comments: Use /// for documentation comments and // for internal logic explanation.
 
@@ -100,7 +106,15 @@ Submit PR: Fill out the Pull Request Template.
 🧪 Testing Requirements
 All contributions must include tests:
 
-Unit Tests: In src/test.rs for individual function logic.
+- **Unit Tests**: In `src/test.rs` for individual function logic.
+- **Integration Tests**: In `tests/` for multi-contract or complex interactions.
+- **Mocking**: Use `env.mock_all_auths()` for testing authorization flows.
+- **Coverage**: Aim for high test coverage. Run coverage locally with:
+  ```bash
+  cargo tarpaulin
+  # Reports are written to coverage/ (XML, HTML, LCOV)
+  # Open coverage/tarpaulin-report.html in a browser for a line-by-line view
+  ```
 
 Integration Tests: In tests/ for multi-contract or complex interactions.
 
