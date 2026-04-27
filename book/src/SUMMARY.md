@@ -46,6 +46,7 @@
 - [Performance Benchmarks](./docs/benchmarks.md)
 - [Glossary](./docs/glossary.md)
 - [Common Patterns](./docs/common-patterns.md)
+- [Troubleshooting](./docs/troubleshooting.md)
 
 # Contributing
 
