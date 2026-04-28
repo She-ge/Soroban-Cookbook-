@@ -2,7 +2,7 @@
 
 Welcome to the Soroban Cookbook documentation. This page gathers quick links, reference material, and pointers to guides and examples.
 
-## Quick Links
+## Quick Links.
 
 | I want to…                  | Go to                                                         |
 | --------------------------- | ------------------------------------------------------------- |
