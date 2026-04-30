@@ -269,7 +269,7 @@ for i in 0..count {
 
 ### 4. Optimize WASM Size
 
-✅ **DO:** Configure release profile for size
+✅ **DO:** Configure release profile for size and test profile for debuggability
 
 ```toml
 [profile.release]
@@ -281,6 +281,23 @@ debug-assertions = false
 panic = "abort"
 codegen-units = 1
 lto = true
+
+[profile.test]
+opt-level = 0            # Fast compile, full debug info
+debug = true
+overflow-checks = true   # Catch arithmetic bugs in tests
+debug-assertions = true
+```
+
+For WASM-specific builds, set the default target in `.cargo/config.toml`:
+
+```toml
+[build]
+target = "wasm32-unknown-unknown"
+
+[target.wasm32-unknown-unknown]
+# Disable reference-types to avoid padded-LEB128 encoding rejected by Soroban VM
+rustflags = ["-C", "target-feature=-reference-types"]
 ```
 
 ✅ **DO:** Avoid unnecessary dependencies
@@ -291,6 +308,26 @@ soroban-sdk = "21.7.0"  # Only what you need
 
 # Avoid heavy crates if possible
 ```
+
+✅ **DO:** Run `wasm-opt` after release builds and compare size output
+
+```bash
+# Build optimized release wasm
+cargo build --workspace --target wasm32-unknown-unknown --release
+
+# Install wasm-opt (Binaryen)
+sudo apt-get update && sudo apt-get install -y binaryen
+
+# Example optimization for one contract
+wasm-opt -Oz target/wasm32-unknown-unknown/release/hello_world.wasm \
+    -o target/wasm32-unknown-unknown/release/hello_world.opt.wasm
+
+# Before/after comparison
+stat -c "%n %s bytes" target/wasm32-unknown-unknown/release/hello_world.wasm
+stat -c "%n %s bytes" target/wasm32-unknown-unknown/release/hello_world.opt.wasm
+```
+
+Use `-Oz` for smallest output size. Keep both before/after numbers in PR notes when optimizing contracts.
 
 ## 🧪 Testing Best Practices
 

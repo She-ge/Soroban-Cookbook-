@@ -474,15 +474,11 @@ impl ValidationContract {
 
         // Special checks for owner and admin
         match required_role {
-            UserRole::Owner => {
-                if user_role != UserRole::Owner {
-                    return Err(ValidationError::NotOwner);
-                }
+            UserRole::Owner if user_role != UserRole::Owner => {
+                return Err(ValidationError::NotOwner);
             }
-            UserRole::Admin => {
-                if user_role != UserRole::Admin && user_role != UserRole::Owner {
-                    return Err(ValidationError::NotAdmin);
-                }
+            UserRole::Admin if user_role != UserRole::Admin && user_role != UserRole::Owner => {
+                return Err(ValidationError::NotAdmin);
             }
             _ => {}
         }
@@ -699,6 +695,5 @@ impl ValidationContract {
     }
 }
 
-#[cfg(test)]
 #[cfg(test)]
 mod test;
