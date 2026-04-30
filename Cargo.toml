@@ -34,3 +34,11 @@ lto = true
 [profile.release-with-logs]
 inherits = "release"
 debug-assertions = true
+
+[profile.test]
+# Keep overflow checks and debug assertions active during testing so that
+# arithmetic bugs surface as panics rather than silent wrapping.
+opt-level = 0
+debug = true
+overflow-checks = true
+debug-assertions = true
