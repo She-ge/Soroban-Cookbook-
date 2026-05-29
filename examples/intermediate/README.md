@@ -19,7 +19,8 @@ How contracts interact with each other.
 
 ### Data Structures
 Efficient ways to store and manage data on-chain.
-- **Planned:** Iterable mappings, Queues, Priority queues, Linked lists.
+- **[Iterable Mappings](./iterable-mappings/)** - Filter, map, and reduce collections with predictable linear gas usage.
+- **Planned:** Queues, Priority queues, Linked lists.
 
 ## 📋 Planned Examples
 
@@ -29,7 +30,7 @@ Efficient ways to store and manage data on-chain.
 - **Proxy Pattern** - Upgradeable contract pattern.
 - **Registry** - Central registry for contract discovery.
 - **Role-Based Access** - Implement RBAC (Role-Based Access Control).
-- **Iterables** - Implement iterable mappings.
+- **Iterable Mappings** - Added as a concrete example for filtering, mapping, and reducing collections.
 
 ## 🎯 Prerequisites
 

@@ -135,7 +135,7 @@ Common patterns and real-world use cases.
 - Token interactions and wrappers
 - Cross-contract patterns (factory, proxy, registry)
 - Access control: [multi-sig patterns](./examples/intermediate/multi-sig-patterns/), RBAC, timelocks
-- Data structures: iterables, queues, priority queues
+- Data structures: [iterable mappings](./examples/intermediate/iterable-mappings/), queues, priority queues
 
 #### [Advanced](./examples/advanced/)
 
