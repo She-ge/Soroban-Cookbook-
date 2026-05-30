@@ -170,7 +170,7 @@ impl TimelockContract {
             .expect("Not initialized");
         admin.require_auth();
 
-        let key = DataKey::Operation(operation_id);
+        let key = DataKey::Operation(operation_id.clone());
         if !env.storage().persistent().has(&key) {
             panic!("Operation not found");
         }

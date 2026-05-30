@@ -1,6 +1,4 @@
 #![no_std]
-use soroban_sdk::{contract, contractimpl, contracterror, Env, String, TryFromVal, Val};
-
 use soroban_sdk::{
     contract, contracterror, contractimpl, contracttype, Address, Bytes, Env, IntoVal, Map, String,
     Symbol, TryFromVal, Val, Vec,
@@ -47,7 +45,7 @@ pub struct Config {
 }
 
 #[contract]
-pub struct ConversionContract;
+pub struct TypeConversionsContract;
 
 #[contractimpl]
 impl TypeConversionsContract {
@@ -218,6 +216,7 @@ impl TypeConversionsContract {
             balance,
             active,
         }
+    }
 
     /// Demonstrates `Val` → typed field extraction using a `Map<Symbol, Val>`.
     ///

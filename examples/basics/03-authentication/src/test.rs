@@ -302,6 +302,9 @@ fn test_multi_sig_missing_one_auth() {
     env.mock_auths(&[]);
 
     client.multi_sig_action(&signers, &10);
+}
+
+// ---------------------------------------------------------------------------
 // Role-Based Access Control Tests
 // ---------------------------------------------------------------------------
 
