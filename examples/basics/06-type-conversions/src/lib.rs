@@ -50,7 +50,7 @@ pub struct Config {
 pub struct ConversionContract;
 
 #[contractimpl]
-impl TypeConversionsContract {
+impl ConversionContract {
     /// Demonstrates numeric TryFrom/TryInto conversions with overflow checking.
     ///
     /// Uses Rust's standard `TryInto` trait — the same trait that powers
