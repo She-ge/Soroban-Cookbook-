@@ -14,6 +14,7 @@ Welcome to the Soroban Cookbook documentation. Use this index to find what you n
 | Fix a build or test error   | [Troubleshooting](./troubleshooting.md)                      |
 | Look up a term              | [Glossary](./glossary.md)                                    |
 | See common patterns         | [Common Patterns](./common-patterns.md)                      |
+| Design multi-contract apps  | [Factory, Proxy, and Registry Patterns](./cross-contract-patterns.md) |
 | Check best practices        | [Best Practices](./best-practices.md)                        |
 | Follow style guide          | [Style Guide](./style-guide.md)                              |
 | Get a cheat sheet           | [Quick Reference](./quick-reference.md)                      |
