@@ -1,6 +1,6 @@
 # Token Examples
 
-Fungible tokens, standards, wrappers.
+Fungible tokens, standards, wrappers, and portfolio utilities.
 
 ### Mint/Burn Token [./mint-burn/](../examples/tokens/mint-burn/)
 **Controlled issuance and destruction.** Demonstrates admin-only minting, user burn rights, total supply tracking, and optional maximum supply caps.
@@ -24,4 +24,4 @@ Fungible tokens, standards, wrappers.
 ## Prerequisites
 - [Basics](../basics.md), [Auth](../basics/03-authentication/)
 
-## End of Examples Section 🎉
+## End of Examples Section
