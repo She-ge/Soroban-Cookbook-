@@ -47,6 +47,7 @@
 
 - [Quick Reference](./docs/quick-reference.md)
 - [Best Practices](./docs/best-practices.md)
+- [Testing Best Practices](./docs/testing-best-practices.md)
 - [Common Pitfalls](./docs/common-pitfalls.md)
 - [Style Guide](./docs/style-guide.md)
 - [Performance Benchmarks](./docs/benchmarks.md)

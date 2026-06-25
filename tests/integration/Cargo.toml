@@ -19,3 +19,6 @@ multi-sig-patterns = { path = "../../examples/intermediate/multi-sig-patterns" }
 multi-party-auth = { path = "../../examples/advanced/01-multi-party-auth" }
 timelock = { path = "../../examples/advanced/02-timelock" }
 token-wrapper = { path = "../../examples/tokens/token-wrapper" }
+basic-nft = { path = "../../examples/nfts/01-basic-nft" }
+collateralized-lending = { path = "../../examples/defi/04-collateralized-lending" }
+sep41-token = { path = "../../examples/tokens/01-sep41-token" }

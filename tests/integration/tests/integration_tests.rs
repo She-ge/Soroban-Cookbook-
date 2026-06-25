@@ -908,3 +908,26 @@ fn test_multi_party_auth_cross_function() {
     assert!(auth_addresses.contains(&buyer));
     assert!(auth_addresses.contains(&seller));
 }
+
+// ---------------------------------------------------------------------------
+// Test 13: Audited Examples Registration (DeFi, NFT, Token)
+// ---------------------------------------------------------------------------
+
+#[test]
+fn test_audited_examples_registration() {
+    let env = Env::default();
+    env.mock_all_auths();
+
+    // Verify basic-nft can be registered
+    let nft_id = env.register_contract(None, basic_nft::BasicNftContract);
+    
+    // Verify collateralized-lending can be registered
+    let lending_id = env.register_contract(None, collateralized_lending::LendingContract);
+    
+    // Verify sep41-token can be registered
+    let token_id = env.register_contract(None, sep41_token::Sep41Token);
+    
+    assert!(nft_id.to_string().len() > 0);
+    assert!(lending_id.to_string().len() > 0);
+    assert!(token_id.to_string().len() > 0);
+}
