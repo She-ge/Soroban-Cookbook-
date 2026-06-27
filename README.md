@@ -2,7 +2,6 @@
 
 **A comprehensive guide to building smart contracts on Stellar with Soroban**
 
-[![CI](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/ci.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/ci.yml)
 [![Test and Lint](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/test.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/test.yml)
 [![Security Audit](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/security-audit.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/security-audit.yml)
 [![codecov](https://codecov.io/gh/Soroban-Cookbook/Soroban-Cookbook-/branch/main/graph/badge.svg)](https://codecov.io/gh/Soroban-Cookbook/Soroban-Cookbook-)
@@ -133,6 +132,7 @@ Core Soroban concepts, one at a time.
 
 | Example | Concepts |
 | --- | --- |
+| [hello-world](./examples/hello-world/) | Minimal contract struct, `#[contractimpl]`, returning vectors |
 | [01-hello-world](./examples/basics/01-hello-world/) | Contract struct, `#[contract]` / `#[contractimpl]`, unit tests |
 | [02-storage-patterns](./examples/basics/02-storage-patterns/) | `persistent`, `instance`, `temporary` storage, TTL |
 | [03-authentication](./examples/basics/03-authentication/) | `require_auth()`, admin roles, balances |
@@ -140,11 +140,15 @@ Core Soroban concepts, one at a time.
 | [04-events](./examples/basics/04-events/) | `env.events().publish()`, topic design |
 | [05-auth-context](./examples/basics/05-auth-context/) | Cross-contract execution context |
 | [05-error-handling](./examples/basics/05-error-handling/) | Error enums, validation, propagation |
-| [06-soroban-types](./examples/basics/06-soroban-types/) | `Address`, `Symbol`, `Bytes`, `Map`, `Vec` |
 | [06-validation-patterns](./examples/basics/06-validation-patterns/) | Precondition checks, overflow-safe arithmetic |
-| [07-enum-types](./examples/basics/07-enum-types/) | `#[contracttype]` enums, role dispatch |
-| [08-custom-structs](./examples/basics/08-custom-structs/) | `#[contracttype]` structs, nested types |
-| [09-primitive-types](./examples/basics/09-primitive-types/) | `u32`, `u64`, `i128`, arithmetic safety |
+| [07-type-conversions](./examples/basics/07-type-conversions/) | `TryFromVal`, `IntoVal`, safe narrowing |
+| [08-soroban-types](./examples/basics/08-soroban-types/) | `Address`, `Symbol`, `Bytes`, `Map`, `Vec` |
+| [09-enum-types](./examples/basics/09-enum-types/) | `#[contracttype]` enums, role dispatch |
+| [10-custom-structs](./examples/basics/10-custom-structs/) | `#[contracttype]` structs, nested types |
+| [11-primitive-types](./examples/basics/11-primitive-types/) | `u32`, `u64`, `i128`, arithmetic safety |
+| [12-data-types](./examples/basics/12-data-types/) | Full type system reference |
+| [13-collection-types](./examples/basics/13-collection-types/) | `Vec`, `Map` collection patterns |
+| [14-event-filtering](./examples/basics/14-event-filtering/) | Indexer-friendly event topics |
 
 #### [Intermediate](./examples/intermediate/)
 
@@ -153,7 +157,7 @@ Common patterns and real-world use cases.
 - Token interactions and wrappers
 - Cross-contract patterns (factory, proxy, registry)
 - Access control: [multi-sig patterns](./examples/intermediate/multi-sig-patterns/), RBAC, timelocks
-- Data structures: iterables, queues, priority queues
+- Data structures: [iterable mappings](./examples/intermediate/iterable-mappings/), queues, priority queues
 
 #### [Advanced](./examples/advanced/)
 
@@ -190,6 +194,7 @@ Reference docs in [docs/](./docs/):
 
 - [Best Practices](./docs/best-practices.md) — Security, storage, and code quality guidelines
 - [Style Guide](./docs/style-guide.md) — Naming, documentation, and testing standards
+- [Performance Benchmarks](./docs/benchmarks.md) — Resource usage comparison and optimization tips
 - [Quick Reference](./docs/quick-reference.md) — Cheat sheet for common patterns
 - [Glossary](./docs/glossary.md) — Key terms and concepts
 - [Troubleshooting](./docs/troubleshooting.md) — Common build, test, and deployment issues with solutions

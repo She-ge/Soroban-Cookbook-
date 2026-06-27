@@ -322,11 +322,6 @@ impl ErrorDemoContract {
             .get(&DataKey::Paused)
             .unwrap_or(false)
     }
-
-    /// Converts lower-level math errors into contract-level errors.
-    pub fn divide_with_conversion(a: i128, b: i128) -> Result<i128, Error> {
-        Ok(Self::divide_checked(a, b).map_err(Error::from)?)
-    }
 }
 
 #[cfg(test)]

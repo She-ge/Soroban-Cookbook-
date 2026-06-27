@@ -4,7 +4,7 @@ use super::*;
 use soroban_sdk::{
     testutils::{Address as _, Events as _, IssuerFlags},
     token::{StellarAssetClient, TokenClient},
-    Address, Env, TryFromVal,
+    Address, Env, Event,
 };
 
 struct Fixture {
@@ -181,22 +181,108 @@ fn unwrap_fails_if_underlying_backing_is_clawed_back() {
 fn emits_wrap_and_unwrap_events() {
     let f = setup();
 
+    let wrap_event = WrapEvent {
+        user: f.alice.clone(),
+        amount: 100,
+    };
+    let unwrap_event = UnwrapEvent {
+        user: f.alice.clone(),
+        amount: 40,
+    };
+
     f.wrapper.wrap(&f.alice, &100);
+    let wrap_events = f.env.events().all().filter_by_contract(&f.wrapper_id);
+    assert_eq!(wrap_events, [wrap_event.to_xdr(&f.env, &f.wrapper_id)]);
+
     f.wrapper.unwrap(&f.alice, &40);
+    let unwrap_events = f.env.events().all().filter_by_contract(&f.wrapper_id);
+    assert_eq!(unwrap_events, [unwrap_event.to_xdr(&f.env, &f.wrapper_id)]);
+}
 
-    let events = f.env.events().all();
-    assert_eq!(events.len(), 7);
+// ---------------------------------------------------------------------------
+// Benchmarks
+// ---------------------------------------------------------------------------
+// Run with: cargo test -p token-wrapper -- --nocapture bench
 
-    let (_id, wrap_topics, wrap_amount) = events.get(4).unwrap();
-    let wrap_event: Symbol = Symbol::try_from_val(&f.env, &wrap_topics.get(0).unwrap()).unwrap();
-    let wrapped: i128 = i128::try_from_val(&f.env, &wrap_amount).unwrap();
-    assert_eq!(wrap_event, EVENT_WRAP);
-    assert_eq!(wrapped, 100);
+#[cfg(test)]
+mod bench {
+    extern crate std;
 
-    let (_id, unwrap_topics, unwrap_amount) = events.get(6).unwrap();
-    let unwrap_event: Symbol =
-        Symbol::try_from_val(&f.env, &unwrap_topics.get(0).unwrap()).unwrap();
-    let unwrapped: i128 = i128::try_from_val(&f.env, &unwrap_amount).unwrap();
-    assert_eq!(unwrap_event, EVENT_UNWRAP);
-    assert_eq!(unwrapped, 40);
+    use super::*;
+    use soroban_sdk::{
+        testutils::IssuerFlags,
+        token::{StellarAssetClient, TokenClient},
+        Address, Env,
+    };
+
+    fn setup_bench() -> (
+        Env,
+        Address,
+        TokenWrapperClient<'static>,
+        TokenClient<'static>,
+        Address,
+    ) {
+        let env = Env::default();
+        env.mock_all_auths();
+
+        let admin = Address::generate(&env);
+        let asset = env.register_stellar_asset_contract_v2(admin.clone());
+        asset.issuer().set_flag(IssuerFlags::ClawbackEnabledFlag);
+        let underlying_id = asset.address();
+        let underlying = TokenClient::new(&env, &underlying_id);
+        let underlying_admin = StellarAssetClient::new(&env, &underlying_id);
+
+        let wrapper_id = env.register_contract(None, TokenWrapper);
+        let wrapper = TokenWrapperClient::new(&env, &wrapper_id);
+        wrapper.initialize(&underlying_id);
+
+        let alice = Address::generate(&env);
+        underlying_admin.mint(&alice, &10_000);
+
+        (env, wrapper_id, wrapper, underlying, alice)
+    }
+
+    #[test]
+    fn bench_wrap() {
+        let (env, _wrapper_id, wrapper, _underlying, alice) = setup_bench();
+        env.budget().reset_default();
+        wrapper.wrap(&alice, &1_000);
+        let cpu = env.budget().cpu_instruction_cost();
+        let mem = env.budget().memory_bytes_cost();
+        std::println!("[bench] token-wrapper::wrap  cpu={cpu}  mem={mem}");
+    }
+
+    #[test]
+    fn bench_unwrap() {
+        let (env, _wrapper_id, wrapper, _underlying, alice) = setup_bench();
+        wrapper.wrap(&alice, &1_000);
+        env.budget().reset_default();
+        wrapper.unwrap(&alice, &500);
+        let cpu = env.budget().cpu_instruction_cost();
+        let mem = env.budget().memory_bytes_cost();
+        std::println!("[bench] token-wrapper::unwrap  cpu={cpu}  mem={mem}");
+    }
+
+    #[test]
+    fn bench_transfer() {
+        let (env, _wrapper_id, wrapper, _underlying, alice) = setup_bench();
+        let bob = Address::generate(&env);
+        wrapper.wrap(&alice, &1_000);
+        env.budget().reset_default();
+        wrapper.transfer(&alice, &bob, &400);
+        let cpu = env.budget().cpu_instruction_cost();
+        let mem = env.budget().memory_bytes_cost();
+        std::println!("[bench] token-wrapper::transfer  cpu={cpu}  mem={mem}");
+    }
+
+    #[test]
+    fn bench_backing_query() {
+        let (env, _wrapper_id, wrapper, _underlying, alice) = setup_bench();
+        wrapper.wrap(&alice, &1_000);
+        env.budget().reset_default();
+        let _ = wrapper.backing();
+        let cpu = env.budget().cpu_instruction_cost();
+        let mem = env.budget().memory_bytes_cost();
+        std::println!("[bench] token-wrapper::backing  cpu={cpu}  mem={mem}");
+    }
 }

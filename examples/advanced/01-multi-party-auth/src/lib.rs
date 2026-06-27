@@ -1,6 +1,8 @@
 #![no_std]
 
-use soroban_sdk::{contract, contractimpl, contracttype, symbol_short, Address, Env, Symbol, Vec};
+use soroban_sdk::{
+    contract, contractimpl, contracttype, symbol_short, Address, Bytes, Env, Symbol, Vec,
+};
 
 #[contract]
 pub struct MultiPartyAuthContract;
@@ -144,7 +146,6 @@ impl MultiPartyAuthContract {
         for signer in signers.iter() {
             signer.require_auth();
         }
-    }
 
         // Audit trail for multi-sig action
         env.events().publish(
@@ -157,6 +158,12 @@ impl MultiPartyAuthContract {
 
         // Proceed with multi-authorized action (e.g., token transfer)
         // TokenClient::new(&env, &token_id).transfer(&signers.get_unchecked(0), &to, &amount);
+    }
+
+    /// Multi-sig transfer using a pre-encoded auth vector.
+    pub fn multi_sig_transfer_encoded(env: Env, encoded: Bytes, to: Address, amount: i128) {
+        let signers = Self::decode_and_validate(&env, &encoded);
+        Self::multi_sig_transfer(env, signers, to, amount);
     }
 
     /// M-of-N threshold approval.

@@ -5,7 +5,9 @@
 # Getting Started
 
 - [Setup Environment](./guides/getting-started.md)
+- [macOS Setup Guide](./guides/macos-setup.md)
 - [Testing Guide](./guides/testing.md)
+- [Local Simulation](./guides/local-simulation.md)
 - [Deployment Guide](./guides/deployment.md)
 - [Ethereum to Soroban](./guides/ethereum-to-soroban.md)
 
@@ -17,17 +19,20 @@
 - [Error Handling](./examples/error-handling.md)
 - [Events](./examples/events.md)
 
-## Intermediate
+## Intermediate (3 examples)
 - [Multi-sig patterns](./examples/intermediate.md)
 - [Ajo Factory](./examples/ajo-factory.md)
+- [Pause / Unpause](./examples/pause-unpause.md)
 
-## Advanced (2 examples)
+## Advanced (3 examples)
 - [Multi-party auth](./examples/advanced.md)
+- [Oracle Pattern](./examples/oracle-pattern.md)
 
 # Use Cases
 
 ## DeFi
-- [Overview & planned](./examples/defi.md)
+- [Overview](./examples/defi.md)
+- [Vault Strategies](./examples/vault-strategies.md)
 
 ## NFTs
 - [Overview & planned](./examples/nfts.md)
@@ -42,10 +47,15 @@
 
 - [Quick Reference](./docs/quick-reference.md)
 - [Best Practices](./docs/best-practices.md)
+- [Common Pitfalls](./docs/common-pitfalls.md)
 - [Style Guide](./docs/style-guide.md)
+- [Performance Benchmarks](./docs/benchmarks.md)
 - [Glossary](./docs/glossary.md)
 - [Common Patterns](./docs/common-patterns.md)
+- [Factory, Proxy, and Registry Patterns](./docs/cross-contract-patterns.md)
 - [Troubleshooting](./docs/troubleshooting.md)
+- [Token Development Walkthrough](./docs/token-development-video.md)
+
 
 # Contributing
 

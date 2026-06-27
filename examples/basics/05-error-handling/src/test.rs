@@ -4,10 +4,7 @@
 
 #[cfg(test)]
 mod tests {
-    use soroban_sdk::{
-        testutils::{Address as _, AuthorizedFunction, AuthorizedInvocation},
-        Address, Env, IntoVal, Symbol,
-    };
+    use soroban_sdk::{testutils::Address as _, Address, Env, Symbol};
 
     use crate::{ContractError, ErrorDemoContract, ErrorDemoContractClient};
 
