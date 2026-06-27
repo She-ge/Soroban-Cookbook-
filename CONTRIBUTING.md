@@ -169,3 +169,45 @@ cargo build --workspace --target wasm32-unknown-unknown --release
 
 - We run targeted tests for changed paths on pull requests to enable fast feedback.
 - For merges to main, the CI fallback runs the entire workspace check to ensure full compatibility.
+
+## Security Bug Bounty Program
+
+We welcome responsible security disclosures for vulnerabilities found in this repository and its example contracts.
+
+### How to Participate
+
+- Review contracts, tests, and docs in this repository.
+- Reproduce potential vulnerabilities with a minimal proof of concept.
+- Submit findings privately using a GitHub Security Advisory draft or by opening a private maintainer contact thread.
+
+### Submission Guidelines
+
+- Include affected path(s), impact, and severity.
+- Include a clear reproduction flow and expected vs actual behavior.
+- Include environment details: Rust version, Soroban SDK version, and command output.
+- Include suggested remediation when possible.
+- Do not publish exploit details until maintainers confirm remediation or coordinated disclosure timing.
+
+### Reward Structure
+
+- Informational: public acknowledgement only.
+- Low severity: acknowledgement and contributor spotlight.
+- Medium severity: acknowledgement, spotlight, and prioritized maintainer response.
+- High and critical severity: acknowledgement, spotlight, and eligibility for discretionary community-funded rewards when available.
+
+Note: This repository is educational and reward availability depends on sponsor/community budget.
+
+### Hall of Fame
+
+Researchers who submit valid reports are added to the Security Hall of Fame in release notes or periodic security recap notes.
+
+### FAQ
+
+Q: Can I open a public issue for a vulnerability?
+A: No. Use private disclosure channels first.
+
+Q: Do you accept vulnerabilities in third-party dependencies?
+A: Yes, if they are exploitable in repository examples and include a clear impact statement.
+
+Q: How quickly will I receive a response?
+A: Maintainers target initial triage within 7 days.

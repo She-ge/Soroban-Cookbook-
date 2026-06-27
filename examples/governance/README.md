@@ -10,6 +10,7 @@ This category contains examples related to on-chain governance, including Decent
 
 ## Planned Examples
 
+- `01-proposal-validation`: Defensive proposal checks with conflict detection before execution.
 - `01-simple-dao`: A basic DAO with token-based voting on proposals.
 - `02-treasury`: A contract for managing a DAO's funds, controlled by governance.
 - `03-quadratic-voting`: An implementation of a quadratic voting mechanism.

@@ -13,3 +13,4 @@ This category contains examples of complex systems and advanced architectural pa
 - `03-oracle-integration`: A contract that consumes data from an external oracle.
 - `04-atomic-swaps`: A trustless, cross-contract asset swap.
 - `05-payment-channels`: A basic state channel implementation for off-chain transactions.
+- `08-batch-operations`: Batch call interface with atomic rollback and partial execution modes.
