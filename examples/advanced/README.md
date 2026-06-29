@@ -15,6 +15,7 @@ This category contains examples of complex systems and advanced architectural pa
 - [`01-multi-party-auth`](./01-multi-party-auth/) — Multi-party authorization patterns
 - [`02-timelock`](./02-timelock/) — Time-delayed execution
 - [`03-oracle-pattern`](./03-oracle-pattern/) — Basic oracle with freshness checks
+- [`06-beacon-management`](./06-beacon-management/) — Versioned beacon management with rollback support
 
 ## Planned Examples
 
