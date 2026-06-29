@@ -398,7 +398,7 @@ impl HierarchicalAccessControlContract {
             .storage()
             .instance()
             .get(&DataKey::RoleMembers(role))
-            .unwrap_or_else(|| Vec::new(env));
+            .unwrap_or_else(|| Vec::new(&env));
         members.contains(account)
     }
 
@@ -411,7 +411,7 @@ impl HierarchicalAccessControlContract {
                     .storage()
                     .instance()
                     .get(&DataKey::RolePermissions(*role))
-                    .unwrap_or_else(|| Vec::new(env));
+                    .unwrap_or_else(|| Vec::new(&env));
                 if perms.contains(&permission) {
                     return true;
                 }
