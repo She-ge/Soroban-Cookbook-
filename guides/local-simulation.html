@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Troubleshooting - Soroban Cookbook</title>
+        <title>Local Simulation - Soroban Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -146,7 +146,7 @@
                         <a href="https://github.com/Soroban-Cookbook/Soroban-Cookbook" title="Git repository" aria-label="Git repository">
                             <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
                         </a>
-                        <a href="https://github.com/Soroban-Cookbook/Soroban-Cookbook/edit/main/src/docs/troubleshooting.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                        <a href="https://github.com/Soroban-Cookbook/Soroban-Cookbook/edit/main/src/guides/local-simulation.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
                             <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
                         </a>
 
@@ -180,308 +180,278 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="troubleshooting-guide"><a class="header" href="#troubleshooting-guide">Troubleshooting Guide</a></h1>
-<p>Common issues encountered when building, testing, and deploying Soroban smart contracts, with solutions and workarounds.</p>
+                        <h1 id="local-simulation-guide"><a class="header" href="#local-simulation-guide">Local Simulation Guide</a></h1>
+<p>How to build, invoke, and debug Soroban contracts entirely on your machine before touching testnet.</p>
 <hr>
-<h2 id="build-errors"><a class="header" href="#build-errors">Build Errors</a></h2>
-<h3 id="errore0463-cant-find-crate-for-std"><a class="header" href="#errore0463-cant-find-crate-for-std"><code>error[E0463]: can't find crate for 'std'</code></a></h3>
-<p><strong>Cause:</strong> The contract crate is missing <code>#![no_std]</code> or the WASM target is not installed.</p>
-<p><strong>Solution:</strong></p>
-<ol>
-<li>Add <code>#![no_std]</code> at the top of <code>src/lib.rs</code>.</li>
-<li>Install the WASM target:
-<pre><code class="language-bash">rustup target add wasm32-unknown-unknown
-</code></pre>
-</li>
-<li>Build with the correct target:
-<pre><code class="language-bash">cargo build --target wasm32-unknown-unknown --release
-</code></pre>
-</li>
-</ol>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<ul>
+<li>Rust with <code>wasm32-unknown-unknown</code> target (<code>rustup target add wasm32-unknown-unknown</code>)</li>
+<li>Stellar CLI 22.1.0+ (<code>cargo install --locked stellar-cli --version 22.1.0</code>)</li>
+</ul>
 <hr>
-<h3 id="error-the-wasm32-unknown-unknown-target-may-not-be-installed"><a class="header" href="#error-the-wasm32-unknown-unknown-target-may-not-be-installed"><code>error: the 'wasm32-unknown-unknown' target may not be installed</code></a></h3>
-<p><strong>Cause:</strong> The WASM target is missing from the active Rust toolchain.</p>
-<p><strong>Solution:</strong></p>
-<pre><code class="language-bash">rustup target add wasm32-unknown-unknown
-rustup target list --installed   # verify
+<h2 id="how-local-simulation-works"><a class="header" href="#how-local-simulation-works">How Local Simulation Works</a></h2>
+<p>The Stellar CLI embeds the same Soroban host used on-chain. When you run <code>stellar contract invoke</code> without <code>--network</code>, it spins up an in-process ledger, executes your WASM, and returns results — no network, no fees, no funded account required.</p>
+<hr>
+<h2 id="reproducible-local-workflow"><a class="header" href="#reproducible-local-workflow">Reproducible Local Workflow</a></h2>
+<h3 id="step-1--build"><a class="header" href="#step-1--build">Step 1 — Build</a></h3>
+<pre><code class="language-bash">cd examples/basics/01-hello-world
+stellar contract build
+# WASM → target/wasm32-unknown-unknown/release/hello_world.wasm
+</code></pre>
+<h3 id="step-2--deploy-to-the-local-sandbox"><a class="header" href="#step-2--deploy-to-the-local-sandbox">Step 2 — Deploy to the local sandbox</a></h3>
+<pre><code class="language-bash">CONTRACT_ID=$(stellar contract deploy \
+  --wasm target/wasm32-unknown-unknown/release/hello_world.wasm \
+  --source-account alice \
+  --network-passphrase "Standalone Network ; February 2017" \
+  --rpc-url http://localhost:8000/soroban/rpc)
+
+echo $CONTRACT_ID   # save this for subsequent calls
+</code></pre>
+<blockquote>
+<p>If you don’t have a local RPC node, omit <code>--rpc-url</code> and <code>--network-passphrase</code> to use the CLI’s built-in sandbox mode (no node needed).</p>
+</blockquote>
+<h3 id="step-3--invoke"><a class="header" href="#step-3--invoke">Step 3 — Invoke</a></h3>
+<pre><code class="language-bash">stellar contract invoke \
+  --id $CONTRACT_ID \
+  --source-account alice \
+  -- \
+  hello \
+  --to World
+</code></pre>
+<p>Expected output:</p>
+<pre><code>["Hello", "World"]
+</code></pre>
+<h3 id="step-4--dry-run-before-every-real-submission"><a class="header" href="#step-4--dry-run-before-every-real-submission">Step 4 — Dry-run before every real submission</a></h3>
+<p>Add <code>--send no</code> to simulate without broadcasting. This is the fastest way to catch panics, auth failures, and fee surprises:</p>
+<pre><code class="language-bash">stellar contract invoke \
+  --id $CONTRACT_ID \
+  --source-account alice \
+  --send no \
+  -- \
+  hello \
+  --to World
+</code></pre>
+<p>The CLI prints the simulated return value, resource usage, and fee estimate — all without spending any XLM.</p>
+<hr>
+<h2 id="iterative-development-loop"><a class="header" href="#iterative-development-loop">Iterative Development Loop</a></h2>
+<pre><code>edit src/lib.rs
+      │
+      ▼
+stellar contract build          ← recompile WASM
+      │
+      ▼
+stellar contract invoke --send no   ← dry-run, inspect output
+      │
+      ├─ panic / wrong result? → back to edit
+      │
+      ▼
+cargo test                      ← run unit tests
+      │
+      ▼
+stellar contract invoke         ← submit to local node (optional)
+      │
+      ▼
+ready for testnet
+</code></pre>
+<p>Keep this loop tight. Dry-run catches most issues in seconds; <code>cargo test</code> catches logic errors with full Rust tooling.</p>
+<hr>
+<h2 id="state-inspection"><a class="header" href="#state-inspection">State Inspection</a></h2>
+<h3 id="read-any-storage-entry"><a class="header" href="#read-any-storage-entry">Read any storage entry</a></h3>
+<pre><code class="language-bash">stellar contract read \
+  --id $CONTRACT_ID \
+  --key '{"symbol":"admin"}'
+</code></pre>
+<h3 id="dump-all-instance-storage"><a class="header" href="#dump-all-instance-storage">Dump all instance storage</a></h3>
+<pre><code class="language-bash">stellar contract read \
+  --id $CONTRACT_ID \
+  --durability instance
+</code></pre>
+<h3 id="dump-persistent-storage"><a class="header" href="#dump-persistent-storage">Dump persistent storage</a></h3>
+<pre><code class="language-bash">stellar contract read \
+  --id $CONTRACT_ID \
+  --durability persistent
+</code></pre>
+<h3 id="inspect-ledger-state-after-a-call"><a class="header" href="#inspect-ledger-state-after-a-call">Inspect ledger state after a call</a></h3>
+<pre><code class="language-bash"># 1. invoke and capture the ledger sequence
+stellar contract invoke \
+  --id $CONTRACT_ID \
+  --source-account alice \
+  -- set_value --val 42
+
+# 2. read back the key you just wrote
+stellar contract read \
+  --id $CONTRACT_ID \
+  --key '{"symbol":"val"}'
+# → 42
 </code></pre>
 <hr>
-<h3 id="errore0277-the-trait-bound--is-not-satisfied-on-a-contract-type"><a class="header" href="#errore0277-the-trait-bound--is-not-satisfied-on-a-contract-type"><code>error[E0277]: the trait bound ... is not satisfied</code> on a contract type</a></h3>
-<p><strong>Cause:</strong> A type used in a contract function signature or storage does not implement the required Soroban traits (<code>IntoVal</code>, <code>TryFromVal</code>, etc.).</p>
-<p><strong>Solution:</strong> Annotate the type with <code>#[contracttype]</code>:</p>
+<h2 id="debugging-tips"><a class="header" href="#debugging-tips">Debugging Tips</a></h2>
+<h3 id="1-enable-host-side-logs"><a class="header" href="#1-enable-host-side-logs">1. Enable host-side logs</a></h3>
+<p>The Soroban host emits diagnostic events for every <code>log!</code> call in your contract. Capture them with <code>--diagnostic-events</code>:</p>
+<pre><code class="language-bash">stellar contract invoke \
+  --id $CONTRACT_ID \
+  --source-account alice \
+  --diagnostic-events \
+  -- \
+  my_function \
+  --arg 99
+</code></pre>
+<p>In your contract:</p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use soroban_sdk::contracttype;
+</span>use soroban_sdk::log;
 
-#[contracttype]
-pub struct MyData {
-    pub value: i128,
-    pub owner: soroban_sdk::Address,
+pub fn my_function(env: Env, arg: u32) -&gt; u32 {
+    log!(&amp;env, "my_function called with arg={}", arg);
+    arg * 2
 }
 <span class="boring">}</span></code></pre>
-<p>Custom enums used as storage keys or return values also need <code>#[contracttype]</code>.</p>
-<hr>
-<h3 id="error-proc-macro-derive-panicked--contract-or-contractimpl-errors"><a class="header" href="#error-proc-macro-derive-panicked--contract-or-contractimpl-errors"><code>error: proc-macro derive panicked</code> / <code>#[contract]</code> or <code>#[contractimpl]</code> errors</a></h3>
-<p><strong>Cause:</strong> Mismatched <code>soroban-sdk</code> versions between <code>[dependencies]</code> and <code>[dev-dependencies]</code>, or a missing <code>crate-type</code>.</p>
-<p><strong>Solution:</strong></p>
-<ol>
-<li>Ensure <code>Cargo.toml</code> has:
-<pre><code class="language-toml">[lib]
-crate-type = ["cdylib", "rlib"]
+<h3 id="2-inspect-emitted-events"><a class="header" href="#2-inspect-emitted-events">2. Inspect emitted events</a></h3>
+<pre><code class="language-bash">stellar events \
+  --start-ledger 1 \
+  --id $CONTRACT_ID
 </code></pre>
-</li>
-<li>Pin both dependency entries to the same version:
-<pre><code class="language-toml">[dependencies]
-soroban-sdk = "21.7.0"
-
-[dev-dependencies]
-soroban-sdk = { version = "21.7.0", features = ["testutils"] }
+<p>Events are printed as JSON. Each entry shows <code>type</code>, <code>topics</code>, and <code>data</code> — useful for verifying that your <code>env.events().publish(...)</code> calls fire with the right payloads.</p>
+<h3 id="3-decode-xdr-manually"><a class="header" href="#3-decode-xdr-manually">3. Decode XDR manually</a></h3>
+<p>If the CLI returns raw XDR, decode it:</p>
+<pre><code class="language-bash">stellar xdr decode --type ScVal --input base64 \
+  AAAAEAAAAQAAAAcAAAAFaGVsbG8AAAAA
 </code></pre>
-</li>
-</ol>
-<hr>
-<h3 id="error-linking-with-cc-failed-or-linker-errors-on-wasm-build"><a class="header" href="#error-linking-with-cc-failed-or-linker-errors-on-wasm-build"><code>error: linking with 'cc' failed</code> or linker errors on WASM build</a></h3>
-<p><strong>Cause:</strong> The system linker is being invoked instead of the WASM linker, or <code>lld</code> is missing.</p>
-<p><strong>Solution:</strong> Add a <code>.cargo/config.toml</code> at the workspace root:</p>
-<pre><code class="language-toml">[target.wasm32-unknown-unknown]
-rustflags = ["-C", "target-feature=+multivalue"]
+<h3 id="4-reproduce-a-panic"><a class="header" href="#4-reproduce-a-panic">4. Reproduce a panic</a></h3>
+<p>When a contract panics, the CLI prints the panic message and the host backtrace. To get the full trace, set:</p>
+<pre><code class="language-bash">RUST_BACKTRACE=1 stellar contract invoke ...
 </code></pre>
-<p>Or install <code>lld</code> via your system package manager and ensure it is on <code>PATH</code>.</p>
-<hr>
-<h3 id="overflow-evaluating-the-requirement--stack-overflow-during-compilation"><a class="header" href="#overflow-evaluating-the-requirement--stack-overflow-during-compilation"><code>overflow evaluating the requirement</code> / stack overflow during compilation</a></h3>
-<p><strong>Cause:</strong> Deeply nested <code>#[contracttype]</code> structs or recursive types.</p>
-<p><strong>Solution:</strong> Break the type into smaller, non-recursive pieces. Soroban does not support recursive contract types.</p>
-<hr>
-<h2 id="test-failures"><a class="header" href="#test-failures">Test Failures</a></h2>
-<h3 id="called-optionunwrap-on-a-none-value-in-a-test"><a class="header" href="#called-optionunwrap-on-a-none-value-in-a-test"><code>called 'Option::unwrap()' on a 'None' value</code> in a test</a></h3>
-<p><strong>Cause:</strong> A storage key was never written before being read, or the wrong key was used.</p>
-<p><strong>Solution:</strong> Ensure the contract is initialized before calling read methods:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>client.initialize(&amp;admin);   // write state first
-let val = client.get_value(); // then read
-<span class="boring">}</span></code></pre>
-<p>Use <code>has()</code> to guard optional reads:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>if env.storage().instance().has(&amp;key) {
-    let val: MyType = env.storage().instance().get(&amp;key).unwrap();
-}
-<span class="boring">}</span></code></pre>
-<hr>
-<h3 id="hosterror-errorauth-invalidaction-in-tests"><a class="header" href="#hosterror-errorauth-invalidaction-in-tests"><code>HostError: Error(Auth, InvalidAction)</code> in tests</a></h3>
-<p><strong>Cause:</strong> An <code>Address::require_auth()</code> call was not satisfied. The test did not mock authorization.</p>
-<p><strong>Solution:</strong> Add <code>env.mock_all_auths()</code> before invoking the client:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let env = Env::default();
-env.mock_all_auths();
-<span class="boring">}</span></code></pre>
-<p>To assert that specific auth was required:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use soroban_sdk::testutils::AuthorizedFunction;
-
-let auths = env.auths();
-assert!(!auths.is_empty());
-<span class="boring">}</span></code></pre>
-<hr>
-<h3 id="hosterror-errorwasmvm--or-unreachable-panic-in-tests"><a class="header" href="#hosterror-errorwasmvm--or-unreachable-panic-in-tests"><code>HostError: Error(WasmVm, ...)</code> or <code>unreachable</code> panic in tests</a></h3>
-<p><strong>Cause:</strong> A <code>panic!</code> inside the contract was triggered (e.g., overflow, out-of-bounds, explicit guard).</p>
-<p><strong>Solution:</strong> Use <code>#[should_panic]</code> for expected panics, or return <code>Result&lt;_, ContractError&gt;</code> instead of panicking:</p>
+<h3 id="5-isolate-auth-failures"><a class="header" href="#5-isolate-auth-failures">5. Isolate auth failures</a></h3>
+<p>If you see <code>HostError: Error(Auth, InvalidAction)</code>, the contract called <code>require_auth()</code> for an address that wasn’t authorized. Reproduce with <code>mock_all_auths()</code> in a unit test to confirm which call is failing:</p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[test]
-#[should_panic(expected = "overflow")]
-fn test_overflow() {
-    // ...
+fn debug_auth_failure() {
+    let env = Env::default();
+    env.mock_all_auths();   // bypasses auth — if this passes, auth is the problem
+    let id = env.register_contract(None, MyContract);
+    let client = MyContractClient::new(&amp;env, &amp;id);
+    client.protected_fn(&amp;Address::generate(&amp;env));
 }
 <span class="boring">}</span></code></pre>
-<p>For production contracts, prefer returning errors over panicking:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub fn safe_transfer(env: Env, amount: i128) -&gt; Result&lt;(), Error&gt; {
-    if amount &lt;= 0 {
-        return Err(Error::InvalidAmount);
-    }
-    Ok(())
-}
-<span class="boring">}</span></code></pre>
-<hr>
-<h3 id="tests-pass-locally-but-fail-in-ci"><a class="header" href="#tests-pass-locally-but-fail-in-ci">Tests pass locally but fail in CI</a></h3>
-<p><strong>Cause:</strong> Toolchain version mismatch, missing <code>rust-toolchain.toml</code>, or non-deterministic test ordering.</p>
-<p><strong>Solution:</strong></p>
-<ol>
-<li>Pin the toolchain in <code>rust-toolchain.toml</code>:
-<pre><code class="language-toml">[toolchain]
-channel = "stable"
-targets = ["wasm32-unknown-unknown"]
-</code></pre>
-</li>
-<li>Run the same checks locally that CI runs:
-<pre><code class="language-bash">cargo fmt --all --check
-cargo clippy --all-targets --all-features -- -D warnings
-cargo test --workspace --all-features
-</code></pre>
-</li>
-<li>Check the CI workflow file (<code>.github/workflows/</code>) for any environment variables or setup steps that differ from your local environment.</li>
-</ol>
-<hr>
-<h3 id="errore0599-no-method-named-mock_all_auths"><a class="header" href="#errore0599-no-method-named-mock_all_auths"><code>error[E0599]: no method named 'mock_all_auths'</code></a></h3>
-<p><strong>Cause:</strong> The <code>testutils</code> feature is not enabled for <code>soroban-sdk</code> in <code>[dev-dependencies]</code>.</p>
-<p><strong>Solution:</strong></p>
-<pre><code class="language-toml">[dev-dependencies]
-soroban-sdk = { version = "21.7.0", features = ["testutils"] }
-</code></pre>
-<hr>
-<h2 id="deployment-issues"><a class="header" href="#deployment-issues">Deployment Issues</a></h2>
-<h3 id="error-no-such-file-or-directory-targetwasm32-unknown-unknownreleasewasm"><a class="header" href="#error-no-such-file-or-directory-targetwasm32-unknown-unknownreleasewasm"><code>error: No such file or directory: target/wasm32-unknown-unknown/release/*.wasm</code></a></h3>
-<p><strong>Cause:</strong> The contract was not built for the WASM target before deploying.</p>
-<p><strong>Solution:</strong></p>
-<pre><code class="language-bash">cargo build --target wasm32-unknown-unknown --release
-# or use the Stellar CLI shorthand:
-stellar contract build
-</code></pre>
-<hr>
-<h3 id="stellar-command-not-found"><a class="header" href="#stellar-command-not-found"><code>stellar: command not found</code></a></h3>
-<p><strong>Cause:</strong> The Stellar CLI is not installed or not on <code>PATH</code>.</p>
-<p><strong>Solution:</strong></p>
-<pre><code class="language-bash">cargo install --locked stellar-cli --version 22.1.0
-# Verify:
-stellar --version
-</code></pre>
-<hr>
-<h3 id="error-account-not-found-when-deploying-to-testnet"><a class="header" href="#error-account-not-found-when-deploying-to-testnet"><code>error: account not found</code> when deploying to testnet</a></h3>
-<p><strong>Cause:</strong> The source account does not exist on testnet or has no XLM balance.</p>
-<p><strong>Solution:</strong> Fund the account using Friendbot:</p>
-<pre><code class="language-bash">stellar keys generate alice --network testnet
-stellar keys fund alice --network testnet
-# Or via curl:
-curl "https://friendbot.stellar.org?addr=$(stellar keys address alice)"
-</code></pre>
-<hr>
-<h3 id="error-transaction-failed-op_underfunded"><a class="header" href="#error-transaction-failed-op_underfunded"><code>error: transaction failed: op_underfunded</code></a></h3>
-<p><strong>Cause:</strong> The deploying account does not have enough XLM to cover the transaction fee and minimum balance.</p>
-<p><strong>Solution:</strong> Fund the account (see above). Each deployed contract increases the minimum balance requirement by 0.5 XLM base reserve.</p>
-<hr>
-<h3 id="contract-deployed-but-invoke-returns-hosterror-errorstorage-missingvalue"><a class="header" href="#contract-deployed-but-invoke-returns-hosterror-errorstorage-missingvalue">Contract deployed but <code>invoke</code> returns <code>HostError: Error(Storage, MissingValue)</code></a></h3>
-<p><strong>Cause:</strong> The contract was deployed but not initialized. A read was attempted before the corresponding write.</p>
-<p><strong>Solution:</strong> Call the contract’s <code>initialize</code> function immediately after deployment:</p>
-<pre><code class="language-bash">stellar contract invoke \
-  --id $CONTRACT_ID \
-  --source alice \
-  --network testnet \
-  -- \
-  initialize \
-  --admin $(stellar keys address alice)
-</code></pre>
-<hr>
-<h3 id="error-contract-wasm-too-large"><a class="header" href="#error-contract-wasm-too-large"><code>error: contract wasm too large</code></a></h3>
-<p><strong>Cause:</strong> The compiled WASM binary exceeds the protocol limit (~128 KB for most networks).</p>
-<p><strong>Solution:</strong></p>
-<ol>
-<li>Build in release mode (not debug):
-<pre><code class="language-bash">cargo build --target wasm32-unknown-unknown --release
-</code></pre>
-</li>
-<li>Enable size optimizations in <code>Cargo.toml</code>:
-<pre><code class="language-toml">[profile.release]
-opt-level = "z"
-overflow-checks = true
-debug = false
-strip = "symbols"
-lto = true
-codegen-units = 1
-</code></pre>
-</li>
-<li>Split large contracts into multiple smaller contracts that call each other.</li>
-</ol>
-<hr>
-<h3 id="error-network-passphrase-mismatch"><a class="header" href="#error-network-passphrase-mismatch"><code>error: network passphrase mismatch</code></a></h3>
-<p><strong>Cause:</strong> The CLI is configured for one network (e.g., mainnet) but the contract ID or account belongs to another (e.g., testnet).</p>
-<p><strong>Solution:</strong> Always pass <code>--network</code> explicitly:</p>
-<pre><code class="language-bash">stellar contract invoke --network testnet ...
-stellar contract invoke --network mainnet ...
-</code></pre>
-<p>Or configure a default network:</p>
-<pre><code class="language-bash">stellar network use testnet
-</code></pre>
-<hr>
-<h2 id="solutions-and-workarounds"><a class="header" href="#solutions-and-workarounds">Solutions and Workarounds</a></h2>
-<h3 id="workaround-no-println-in-contracts"><a class="header" href="#workaround-no-println-in-contracts">Workaround: No <code>println!</code> in contracts</a></h3>
-<p>Soroban contracts run in a <code>no_std</code> environment. Use <code>env.logs()</code> for debug output during testing:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>env.logs().print();   // in tests, prints all log entries
-<span class="boring">}</span></code></pre>
-<p>In the contract:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// Not available in production; only visible in test environments
-<span class="boring">}</span></code></pre>
-<p>For production debugging, emit events instead:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>env.events().publish((symbol_short!("debug"),), value);
-<span class="boring">}</span></code></pre>
-<hr>
-<h3 id="workaround-no-hashmap-or-btreemap-from-std"><a class="header" href="#workaround-no-hashmap-or-btreemap-from-std">Workaround: No <code>HashMap</code> or <code>BTreeMap</code> from <code>std</code></a></h3>
-<p>Use Soroban’s <code>Map&lt;K, V&gt;</code> instead:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use soroban_sdk::Map;
-
-let mut map: Map&lt;soroban_sdk::Symbol, i128&gt; = Map::new(&amp;env);
-map.set(soroban_sdk::symbol_short!("key"), 42);
-<span class="boring">}</span></code></pre>
-<hr>
-<h3 id="workaround-no-vec-from-std"><a class="header" href="#workaround-no-vec-from-std">Workaround: No <code>Vec</code> from <code>std</code></a></h3>
-<p>Use Soroban’s <code>Vec&lt;T&gt;</code>:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use soroban_sdk::{vec, Vec};
-
-let v: Vec&lt;i128&gt; = vec![&amp;env, 1, 2, 3];
-<span class="boring">}</span></code></pre>
-<hr>
-<h3 id="workaround-simulating-time-in-tests"><a class="header" href="#workaround-simulating-time-in-tests">Workaround: Simulating time in tests</a></h3>
-<p>Soroban’s test environment does not advance time automatically. Set the ledger timestamp manually:</p>
+<h3 id="6-advance-ledger-time-in-tests"><a class="header" href="#6-advance-ledger-time-in-tests">6. Advance ledger time in tests</a></h3>
+<p>Timelocks and TTL logic depend on <code>env.ledger().timestamp()</code>. Manipulate it directly:</p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>env.ledger().with_mut(|li| {
     li.timestamp = 1_700_000_000;
-    li.sequence  = 1000;
+    li.sequence_number = 100;
 });
 <span class="boring">}</span></code></pre>
+<p>Call your function, then advance time and call again to test expiry paths.</p>
 <hr>
-<h3 id="workaround-testing-ttl--storage-expiry"><a class="header" href="#workaround-testing-ttl--storage-expiry">Workaround: Testing TTL / storage expiry</a></h3>
-<p>Advance the ledger sequence to simulate TTL expiry:</p>
+<h2 id="practical-example-counter-contract"><a class="header" href="#practical-example-counter-contract">Practical Example: Counter Contract</a></h2>
+<p>A complete edit → simulate → inspect loop using a simple counter.</p>
+<p><strong>Contract (<code>src/lib.rs</code>)</strong></p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>env.ledger().with_mut(|li| {
-    li.sequence += 10_000; // advance past the TTL
-});
+</span>use soroban_sdk::{contract, contractimpl, log, symbol_short, Env};
+
+#[contract]
+pub struct Counter;
+
+#[contractimpl]
+impl Counter {
+    pub fn increment(env: Env) -&gt; u32 {
+        let mut count: u32 = env.storage().instance()
+            .get(&amp;symbol_short!("count"))
+            .unwrap_or(0);
+        count += 1;
+        env.storage().instance().set(&amp;symbol_short!("count"), &amp;count);
+        log!(&amp;env, "count is now {}", count);
+        count
+    }
+
+    pub fn get(env: Env) -&gt; u32 {
+        env.storage().instance()
+            .get(&amp;symbol_short!("count"))
+            .unwrap_or(0)
+    }
+}
 <span class="boring">}</span></code></pre>
+<p><strong>Build and deploy</strong></p>
+<pre><code class="language-bash">stellar contract build
+
+CONTRACT_ID=$(stellar contract deploy \
+  --wasm target/wasm32-unknown-unknown/release/counter.wasm \
+  --source-account alice)
+</code></pre>
+<p><strong>Dry-run first call</strong></p>
+<pre><code class="language-bash">stellar contract invoke \
+  --id $CONTRACT_ID \
+  --source-account alice \
+  --send no \
+  -- increment
+# → 1  (simulated, not committed)
+</code></pre>
+<p><strong>Submit and inspect state</strong></p>
+<pre><code class="language-bash">stellar contract invoke \
+  --id $CONTRACT_ID \
+  --source-account alice \
+  -- increment
+# → 1
+
+stellar contract read \
+  --id $CONTRACT_ID \
+  --key '{"symbol":"count"}'
+# → 1
+
+stellar contract invoke \
+  --id $CONTRACT_ID \
+  --source-account alice \
+  -- increment
+# → 2
+
+stellar contract invoke \
+  --id $CONTRACT_ID \
+  -- get
+# → 2
+</code></pre>
 <hr>
-<h2 id="getting-more-help"><a class="header" href="#getting-more-help">Getting More Help</a></h2>
-<ul>
-<li><a href="https://developers.stellar.org/docs/smart-contracts">Soroban Documentation</a></li>
-<li><a href="https://docs.rs/soroban-sdk/">soroban-sdk API Reference</a></li>
-<li><a href="https://discord.gg/stellardev">Stellar Developer Discord</a> — <code>#soroban</code> channel</li>
-<li><a href="https://github.com/Soroban-Cookbook/Soroban-Cookbook-/issues">GitHub Issues</a> — report bugs or ask questions</li>
-<li><a href="./quick-reference.html">Quick Reference</a> — common patterns cheat sheet</li>
-<li><a href="./best-practices.html">Best Practices</a> — security and code quality guidelines</li>
-</ul>
+<h2 id="moving-to-testnet"><a class="header" href="#moving-to-testnet">Moving to Testnet</a></h2>
+<p>Once your local loop is clean:</p>
+<ol>
+<li>Add the testnet network config (see <a href="./deployment.html#network-configuration">Deployment Guide</a>)</li>
+<li>Fund an account via Friendbot</li>
+<li>Re-run the same <code>stellar contract deploy</code> and <code>invoke</code> commands with <code>--network testnet</code></li>
+</ol>
+<p>The commands are identical — only the <code>--network</code> flag changes. Everything you validated locally transfers directly.</p>
+<hr>
+<h2 id="quick-reference"><a class="header" href="#quick-reference">Quick Reference</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Task</th><th>Command</th></tr>
+</thead>
+<tbody>
+<tr><td>Build WASM</td><td><code>stellar contract build</code></td></tr>
+<tr><td>Deploy locally</td><td><code>stellar contract deploy --wasm &lt;path&gt; --source-account alice</code></td></tr>
+<tr><td>Dry-run invoke</td><td><code>stellar contract invoke --id $ID --send no -- &lt;fn&gt;</code></td></tr>
+<tr><td>Read storage key</td><td><code>stellar contract read --id $ID --key '&lt;json&gt;'</code></td></tr>
+<tr><td>Dump instance storage</td><td><code>stellar contract read --id $ID --durability instance</code></td></tr>
+<tr><td>View events</td><td><code>stellar events --start-ledger 1 --id $ID</code></td></tr>
+<tr><td>Decode XDR</td><td><code>stellar xdr decode --type ScVal --input base64 &lt;xdr&gt;</code></td></tr>
+<tr><td>Enable diagnostics</td><td>add <code>--diagnostic-events</code> to any invoke</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><strong>Next:</strong> <a href="./deployment.html">Deployment Guide</a> — deploy to testnet and mainnet.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../docs/cross-contract-patterns.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../guides/testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../docs/token-development-video.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../guides/deployment.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -491,11 +461,11 @@ let v: Vec&lt;i128&gt; = vec![&amp;env, 1, 2, 3];
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../docs/cross-contract-patterns.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../guides/testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../docs/token-development-video.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../guides/deployment.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
