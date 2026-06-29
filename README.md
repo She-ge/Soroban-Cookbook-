@@ -187,6 +187,7 @@ Step-by-step tutorials in the [book](./book/src/guides/):
 | [Testing](./book/src/guides/testing.md) | Unit tests, integration tests, best practices |
 | [Deployment](./book/src/guides/deployment.md) | Deploy to testnet and mainnet |
 | [Ethereum to Soroban](./book/src/guides/ethereum-to-soroban.md) | Solidity → Rust pattern translation |
+| [Freighter Wallet Integration](./guides/freighter-wallet-integration.md) | Practical guide to connecting and interacting with Freighter Wallet |
 
 ## Documentation
 
