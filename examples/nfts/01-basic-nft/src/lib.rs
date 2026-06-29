@@ -14,6 +14,7 @@ pub enum DataKey {
     Owner(u32),
     Balance(Address),
     TokenByIndex(u32),
+    TokenIndex(u32),
     OwnerTokenIndex(u32),
     OwnedToken(Address, u32),
     Approved(u32),
@@ -162,7 +163,10 @@ impl BasicNftContract {
             &approved,
         );
         env.events().publish(
-            (Symbol::new(&env, "set_approval_for_all"), symbol_short!("nft")),
+            (
+                soroban_sdk::Symbol::new(&env, "set_approval_for_all"),
+                symbol_short!("nft"),
+            ),
             (owner, operator, approved),
         );
         Ok(())
