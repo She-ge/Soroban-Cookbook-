@@ -1,6 +1,8 @@
 #![no_std]
 
-use soroban_sdk::{contract, contractimpl, contracttype, symbol_short, Address, Env, Symbol, Vec};
+use soroban_sdk::{
+    contract, contractimpl, contracttype, symbol_short, Address, Env, Symbol, Vec,
+};
 
 /// Maximum number of data sources allowed per oracle
 const MAX_SOURCES: u32 = 10;
@@ -92,7 +94,7 @@ impl DataAggregationOracleContract {
         Self::require_not_paused(&env);
 
         let mut sources = Self::get_sources_vec(&env);
-        if sources.len() >= (MAX_SOURCES as usize) {
+        if (sources.len() as u32) >= MAX_SOURCES {
             panic!("Max sources");
         }
 
@@ -103,9 +105,7 @@ impl DataAggregationOracleContract {
         }
 
         sources.push_back(source);
-        env.storage()
-            .instance()
-            .set(&DataKey::TrustedSources, &sources);
+        env.storage().instance().set(&DataKey::TrustedSources, &sources);
     }
 
     /// Remove a trusted data source
@@ -127,9 +127,7 @@ impl DataAggregationOracleContract {
             panic!("Not found");
         }
 
-        env.storage()
-            .instance()
-            .set(&DataKey::TrustedSources, &sources);
+        env.storage().instance().set(&DataKey::TrustedSources, &sources);
     }
 
     /// Submit data from a source
@@ -140,10 +138,9 @@ impl DataAggregationOracleContract {
         env.storage()
             .instance()
             .set(&DataKey::SourceValue(source.clone()), &value);
-        env.storage().instance().set(
-            &DataKey::SourceTimestamp(source.clone()),
-            &env.ledger().timestamp(),
-        );
+        env.storage()
+            .instance()
+            .set(&DataKey::SourceTimestamp(source.clone()), &env.ledger().timestamp());
 
         env.events().publish(
             (CONTRACT_NS, ACTION_SUBMIT, source.clone()),
@@ -160,29 +157,27 @@ impl DataAggregationOracleContract {
         Self::require_not_paused(&env);
 
         let sources = Self::get_sources_vec(&env);
-        if sources.len() < (MIN_DATA_POINTS as usize) {
+        if (sources.len() as u32) < MIN_DATA_POINTS {
             panic!("Not enough sources");
         }
 
         // Collect values
-        let mut values: Vec<i128> = Vec::new();
+        let mut values: Vec<i128> = Vec::new(&env);
         for source in sources.iter() {
-            if env
-                .storage()
+            if env.storage()
                 .instance()
                 .has(&DataKey::SourceValue(source.clone()))
             {
                 let val: i128 = env
                     .storage()
                     .instance()
-                    .get(&DataKey::SourceValue(source.clone()))
-                    .unwrap()
+                    .get::<_, i128>(&DataKey::SourceValue(source.clone()))
                     .unwrap();
                 values.push_back(val);
             }
         }
 
-        if values.len() < (MIN_DATA_POINTS as usize) {
+        if (values.len() as u32) < MIN_DATA_POINTS {
             panic!("Not enough data");
         }
 
@@ -190,11 +185,13 @@ impl DataAggregationOracleContract {
         let median = Self::calc_median(&values);
 
         // Filter outliers
-        let mut filtered: Vec<i128> = Vec::new();
+        let mut filtered: Vec<i128> = Vec::new(&env);
         let mut outlier_cnt: u32 = 0;
 
         for (idx, source) in sources.iter().enumerate() {
-            if let Some(val) = values.get(idx as u32) {
+            let idx_u32 = idx as u32;
+            if idx_u32 < (values.len() as u32) {
+                let val = values.get(idx_u32).unwrap();
                 let deviation = if median != 0 {
                     ((val - median).abs() * BASIS_POINTS) / median.abs()
                 } else {
@@ -261,11 +258,10 @@ impl DataAggregationOracleContract {
 
     /// Check if paused
     pub fn is_paused(env: Env) -> bool {
-        env.storage()
-            .instance()
-            .get::<DataKey, bool>(&DataKey::Paused)
-            .unwrap_or(Ok(false))
-            .unwrap_or(false)
+        match env.storage().instance().get(&DataKey::Paused) {
+            Some(val) => val,
+            None => false,
+        }
     }
 
     // Internal helpers
@@ -273,8 +269,7 @@ impl DataAggregationOracleContract {
         let stored: Address = env
             .storage()
             .instance()
-            .get(&DataKey::Admin)
-            .unwrap()
+            .get::<_, Address>(&DataKey::Admin)
             .unwrap();
         if stored != *admin {
             panic!("Unauthorized");
@@ -282,13 +277,11 @@ impl DataAggregationOracleContract {
     }
 
     fn require_not_paused(env: &Env) {
-        if env
-            .storage()
-            .instance()
-            .get::<DataKey, bool>(&DataKey::Paused)
-            .unwrap_or(Ok(false))
-            .unwrap_or(false)
-        {
+        let paused: bool = match env.storage().instance().get(&DataKey::Paused) {
+            Some(val) => val,
+            None => false,
+        };
+        if paused {
             panic!("Paused");
         }
     }
@@ -304,11 +297,10 @@ impl DataAggregationOracleContract {
     }
 
     fn get_sources_vec(env: &Env) -> Vec<Address> {
-        env.storage()
-            .instance()
-            .get::<DataKey, Vec<Address>>(&DataKey::TrustedSources)
-            .unwrap_or(Ok(Vec::new(env)))
-            .unwrap_or_else(|_| Vec::new(env))
+        match env.storage().instance().get(&DataKey::TrustedSources) {
+            Some(val) => val,
+            None => Vec::new(env),
+        }
     }
 
     fn calc_median(values: &Vec<i128>) -> i128 {
