@@ -15,6 +15,8 @@
 
 # Examples
 
+- [All Examples Index](./examples-index.md)
+
 ## Basics (14 examples)
 - [Overview & listing](./examples/basics.md)
 - [Interactive Playground](./examples/playground.md)
@@ -51,6 +53,7 @@
 - [Quick Reference](./docs/quick-reference.md)
 - [Best Practices](./docs/best-practices.md)
 - [Testing Best Practices](./docs/testing-best-practices.md)
+- [Documentation Platform Evaluation](./docs/documentation-platform-evaluation.md)
 - [DeFi Best Practices](./docs/defi-best-practices.md)
 - [Common Pitfalls](./docs/common-pitfalls.md)
 - [Style Guide](./docs/style-guide.md)
