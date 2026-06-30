@@ -217,3 +217,21 @@ jobs:
           name: soroban-cookbook
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  spell-check:
+    name: Spell Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install cspell
+        run: npm install -g cspell
+
+      - name: Run spell check
+        run: cspell --config cspell.json "**/*.md" "**/*.rs" "**/*.toml" "**/*.yml" "**/*.yaml" "**/*.tsx" "**/*.ts"
