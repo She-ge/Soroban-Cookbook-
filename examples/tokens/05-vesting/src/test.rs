@@ -3,7 +3,7 @@
 use super::*;
 use soroban_sdk::{
     testutils::{Address as _, Ledger, MockAuth, MockAuthInvoke},
-    Address, Env, IntoVal, token,
+    token, Address, Env, IntoVal,
 };
 
 fn setup_test(
@@ -16,7 +16,9 @@ fn setup_test(
 ) {
     let admin = Address::generate(env);
     let token_admin = Address::generate(env);
-    let token_address = env.register_stellar_asset_contract_v2(token_admin).address();
+    let token_address = env
+        .register_stellar_asset_contract_v2(token_admin)
+        .address();
     let token_client = token::StellarAssetClient::new(env, &token_address);
 
     let contract_id = env.register(VestingContract, ());

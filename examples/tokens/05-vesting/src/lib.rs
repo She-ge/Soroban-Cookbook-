@@ -1,8 +1,7 @@
 #![no_std]
 
 use soroban_sdk::{
-    contract, contracterror, contractimpl, contracttype, symbol_short, Address, Env,
-    token,
+    contract, contracterror, contractimpl, contracttype, symbol_short, token, Address, Env,
 };
 
 #[contracttype]
@@ -119,7 +118,11 @@ impl VestingContract {
             .set(&DataKey::Schedule(beneficiary.clone()), &schedule);
 
         env.events().publish(
-            (symbol_short!("vesting"), symbol_short!("create"), beneficiary.clone()),
+            (
+                symbol_short!("vesting"),
+                symbol_short!("create"),
+                beneficiary.clone(),
+            ),
             ScheduleCreatedEventData {
                 beneficiary,
                 total_allocation,
@@ -167,10 +170,18 @@ impl VestingContract {
             .ok_or(VestingError::NotInitialized)?;
         let token_client = token::Client::new(&env, &token_address);
 
-        token_client.transfer(&env.current_contract_address(), &beneficiary, &claimable_amount);
+        token_client.transfer(
+            &env.current_contract_address(),
+            &beneficiary,
+            &claimable_amount,
+        );
 
         env.events().publish(
-            (symbol_short!("vesting"), symbol_short!("claim"), beneficiary.clone()),
+            (
+                symbol_short!("vesting"),
+                symbol_short!("claim"),
+                beneficiary.clone(),
+            ),
             TokensClaimedEventData {
                 beneficiary,
                 amount: claimable_amount,
@@ -182,7 +193,9 @@ impl VestingContract {
 
     /// Returns the vesting schedule for a beneficiary.
     pub fn get_schedule(env: Env, beneficiary: Address) -> Option<VestingSchedule> {
-        env.storage().persistent().get(&DataKey::Schedule(beneficiary))
+        env.storage()
+            .persistent()
+            .get(&DataKey::Schedule(beneficiary))
     }
 
     /// Returns the currently vested amount for a beneficiary.
