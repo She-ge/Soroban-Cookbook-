@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "rust";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-91a76d89.js";
+            window.path_to_searchindex_js = "searchindex-e0dc217d.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-6e36cc74.js"></script>
+        <script src="toc-9dee982d.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -181,45 +181,144 @@
                         <h1 id="soroban-cookbook"><a class="header" href="#soroban-cookbook">Soroban Cookbook</a></h1>
 <p><strong>A comprehensive guide to building smart contracts on Stellar with Soroban</strong></p>
 <h2 id="about"><a class="header" href="#about">About</a></h2>
-<p>The Soroban Cookbook is a developer’s guide to building smart contracts on the Stellar network using Soroban. This documentation provides clear, well-documented examples and practical patterns for developers at every level—from your first “Hello World” contract to complex DeFi protocols.</p>
-<h2 id="what-youll-find-here"><a class="header" href="#what-youll-find-here">What You’ll Find Here</a></h2>
-<h3 id="examples-by-difficulty"><a class="header" href="#examples-by-difficulty">Examples by Difficulty</a></h3>
-<ul>
-<li><strong>Basics</strong> - Core concepts: storage, auth, events, and data types</li>
-<li><strong>Intermediate</strong> - Tokens, NFTs, multi-contract interactions</li>
-<li><strong>Advanced</strong> - DeFi protocols, governance systems, cross-chain patterns</li>
-</ul>
-<h3 id="examples-by-use-case"><a class="header" href="#examples-by-use-case">Examples by Use Case</a></h3>
-<ul>
-<li><strong>DeFi</strong> - AMMs, lending, vaults, escrow, and yield protocols</li>
-<li><strong>NFTs</strong> - Minting, marketplaces, and metadata standards</li>
-<li><strong>Governance</strong> - DAOs, voting systems, and proposals</li>
-<li><strong>Tokens</strong> - Custom tokens, wrappers, and token standards</li>
-</ul>
-<h2 id="video-walkthrough"><a class="header" href="#video-walkthrough">Video Walkthrough</a></h2>
-<blockquote>
-<p><strong>Getting Started — Examples 01–03</strong> <em>(coming soon)</em>
-A 10–15 minute video covering Hello World, Storage Patterns, and Custom Errors.
-Subscribe to be notified when it’s published, or check the
-<a href="https://www.youtube.com/@SorobanCookbook">Soroban Cookbook YouTube channel</a> directly.</p>
-<p>Once published, the link will appear here and in each example’s README.</p>
-</blockquote>
+<p>The Soroban Cookbook is a developer’s guide to building smart contracts on the Stellar network using Soroban. This documentation provides clear, well-documented examples and practical patterns for developers at every level — from your first “Hello World” contract to complex DeFi protocols.</p>
 <h2 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h2>
-<pre><code class="language-bash"># Install Rust and Soroban CLI
+<pre><code class="language-bash"># Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-cargo install --locked soroban-cli
+source "$HOME/.cargo/env"
+
+# Add WebAssembly target
+rustup target add wasm32-unknown-unknown
+
+# Install Stellar CLI
+cargo install --locked stellar-cli --version 22.1.0
 
 # Clone the repository
-git clone https://github.com/Soroban-Cookbook/Soroban-Cookbook.git
-cd Soroban-Cookbook
+git clone https://github.com/Soroban-Cookbook/Soroban-Cookbook-.git
+cd Soroban-Cookbook-
 
-# Try a basic example
+# Run a basic example
 cd examples/basics/01-hello-world
 cargo test
-soroban contract build
 </code></pre>
+<h2 id="repository-structure"><a class="header" href="#repository-structure">Repository Structure</a></h2>
+<pre><code>Soroban-Cookbook/
+├── examples/               # Smart contract examples
+│   ├── basics/             # Beginner-friendly fundamentals
+│   ├── intermediate/       # Common patterns and use cases
+│   ├── advanced/           # Complex systems and protocols
+│   ├── defi/               # DeFi-specific examples
+│   ├── nfts/               # NFT implementations
+│   ├── governance/         # DAO and voting systems
+│   └── tokens/             # Token standards and patterns
+├── book/                   # mdBook documentation source
+│   └── src/
+│       ├── guides/         # Step-by-step tutorials
+│       ├── examples/       # Example write-ups
+│       └── docs/           # Reference documentation
+├── tests/                  # Integration and security tests
+└── scripts/                # Build and deployment scripts
+</code></pre>
+<h2 id="examples-by-difficulty"><a class="header" href="#examples-by-difficulty">Examples by Difficulty</a></h2>
+<h3 id="basics"><a class="header" href="#basics">Basics</a></h3>
+<p>Core Soroban concepts, one at a time.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Example</th><th>Concepts</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="../examples/basics/01-hello-world">01-hello-world</a></td><td>Contract struct, <code>#[contract]</code> / <code>#[contractimpl]</code>, unit tests</td></tr>
+<tr><td><a href="../examples/basics/02-storage-patterns">02-storage-patterns</a></td><td><code>persistent</code>, <code>instance</code>, <code>temporary</code> storage, TTL</td></tr>
+<tr><td><a href="../examples/basics/03-authentication">03-authentication</a></td><td><code>require_auth()</code>, admin roles, balances</td></tr>
+<tr><td><a href="../examples/basics/03-custom-errors">03-custom-errors</a></td><td><code>#[contracterror]</code>, error codes</td></tr>
+<tr><td><a href="../examples/basics/04-events">04-events</a></td><td><code>env.events().publish()</code>, topic design</td></tr>
+<tr><td><a href="../examples/basics/05-error-handling">05-error-handling</a></td><td>Error enums, validation, propagation</td></tr>
+<tr><td><a href="../examples/basics/06-validation-patterns">06-validation-patterns</a></td><td>Precondition checks, overflow-safe arithmetic</td></tr>
+<tr><td><a href="../examples/basics/07-type-conversions">07-type-conversions</a></td><td><code>TryFromVal</code>, <code>IntoVal</code>, safe narrowing</td></tr>
+<tr><td><a href="../examples/basics/08-soroban-types">08-soroban-types</a></td><td><code>Address</code>, <code>Symbol</code>, <code>Bytes</code>, <code>Map</code>, <code>Vec</code></td></tr>
+<tr><td><a href="../examples/basics/09-enum-types">09-enum-types</a></td><td><code>#[contracttype]</code> enums, role dispatch</td></tr>
+<tr><td><a href="../examples/basics/10-custom-structs">10-custom-structs</a></td><td><code>#[contracttype]</code> structs, nested types</td></tr>
+<tr><td><a href="../examples/basics/11-primitive-types">11-primitive-types</a></td><td><code>u32</code>, <code>u64</code>, <code>i128</code>, arithmetic safety</td></tr>
+<tr><td><a href="../examples/basics/12-data-types">12-data-types</a></td><td>Full type system reference</td></tr>
+<tr><td><a href="../examples/basics/13-collection-types">13-collection-types</a></td><td><code>Vec</code>, <code>Map</code> collection patterns</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="intermediate"><a class="header" href="#intermediate">Intermediate</a></h3>
+<p>Common patterns and real-world use cases.</p>
+<ul>
+<li>Cross-contract patterns: factory, proxy, registry</li>
+<li>Access control: multi-sig patterns, RBAC, timelocks</li>
+<li>Token interactions and wrappers</li>
+</ul>
+<h3 id="advanced"><a class="header" href="#advanced">Advanced</a></h3>
+<p>Complex systems for experienced developers.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Example</th><th>Concepts</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="../examples/advanced/01-multi-party-auth">01-multi-party-auth</a></td><td>Threshold signatures, multi-party authorization</td></tr>
+<tr><td><a href="../examples/advanced/02-timelock">02-timelock</a></td><td>Time-delayed execution, queue/cancel/execute</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-by-use-case"><a class="header" href="#examples-by-use-case">Examples by Use Case</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Category</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>DeFi</td><td>AMMs, lending pools, vaults, escrow, yield protocols</td></tr>
+<tr><td>NFTs</td><td>Minting, marketplaces, metadata standards</td></tr>
+<tr><td>Governance</td><td>DAOs, voting systems, proposals</td></tr>
+<tr><td>Tokens</td><td>SEP-41 tokens, wrappers, vesting, airdrops</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="guides"><a class="header" href="#guides">Guides</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Guide</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#getting-started-with-soroban">Getting Started</a></td><td>Set up your development environment</td></tr>
+<tr><td><a href="#testing-guide">Testing</a></td><td>Unit tests, integration tests, best practices</td></tr>
+<tr><td><a href="#deployment-guide">Deployment</a></td><td>Deploy to testnet and mainnet</td></tr>
+<tr><td><a href="#local-simulation-guide">Local Simulation</a></td><td>Run contracts locally with the Stellar CLI</td></tr>
+<tr><td><a href="#migrating-from-ethereum-to-soroban">Ethereum to Soroban</a></td><td>Solidity → Rust pattern translation</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="api-reference"><a class="header" href="#api-reference">API Reference</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Document</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#soroban-quick-reference">Quick Reference</a></td><td>Cheat sheet for common patterns</td></tr>
+<tr><td><a href="#soroban-smart-contract-best-practices">Best Practices</a></td><td>Security, storage, and code quality guidelines</td></tr>
+<tr><td><a href="#common-pitfalls-in-soroban-smart-contracts">Common Pitfalls</a></td><td>Mistakes to avoid</td></tr>
+<tr><td><a href="#soroban--stellar-glossary">Glossary</a></td><td>Key terms and concepts</td></tr>
+<tr><td><a href="#troubleshooting-guide">Troubleshooting</a></td><td>Common build, test, and deployment issues</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="code-quality-standards"><a class="header" href="#code-quality-standards">Code Quality Standards</a></h2>
+<p>Every example in this cookbook:</p>
+<ul>
+<li>Compiles successfully using the latest stable Soroban SDK</li>
+<li>Contains comprehensive unit and integration tests</li>
+<li>Enforces strict security boundaries and Rust/Soroban best practices</li>
+<li>Passes all CI/CD pipelines including formatting, Clippy, and test suites</li>
+</ul>
 <h2 id="contributing"><a class="header" href="#contributing">Contributing</a></h2>
-<p>Contributions are welcome. Whether you’re fixing a typo, improving docs, or adding a new example — see <a href="#contributing-to-soroban-cookbook">CONTRIBUTING.md</a> for guidelines. Please also read our <a href="#contributor-covenant-code-of-conduct">Code of Conduct</a>.</p>
+<p>Contributions are welcome. See <a href="#contributing-to-soroban-cookbook">CONTRIBUTING.md</a> for guidelines and <a href="#community-guidelines">Community Guidelines</a> for participation norms. Please also read our <a href="#contributor-covenant-code-of-conduct">Code of Conduct</a>.</p>
 <h2 id="additional-resources"><a class="header" href="#additional-resources">Additional Resources</a></h2>
 <ul>
 <li><a href="https://developers.stellar.org/docs/smart-contracts">Soroban Documentation</a></li>
@@ -2811,7 +2910,7 @@ cargo test --workspace
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="all-examples-index"><a class="header" href="#all-examples-index">All Examples Index</a></h1>
 <p>Search-optimized index of all examples with formatted code snippets and live demos.</p>
-<h2 id="basics"><a class="header" href="#basics">Basics</a></h2>
+<h2 id="basics-1"><a class="header" href="#basics-1">Basics</a></h2>
 <h3 id="01-hello-world"><a class="header" href="#01-hello-world">01 Hello World</a></h3>
 <p><a href="../examples/basics/01-hello-world">View Source</a></p>
 <p><a href="https://soroban.stellar.org/docs">Live Demo</a></p>
@@ -3109,7 +3208,7 @@ let last = items.pop_back(); // Some(30)
 </span><span class="boring">fn main() {
 </span>// Code snippet coming soon
 <span class="boring">}</span></code></pre>
-<h2 id="intermediate"><a class="header" href="#intermediate">Intermediate</a></h2>
+<h2 id="intermediate-1"><a class="header" href="#intermediate-1">Intermediate</a></h2>
 <h3 id="02-role-based-access-control"><a class="header" href="#02-role-based-access-control">02 Role Based Access Control</a></h3>
 <p><a href="../examples/intermediate/02-role-based-access-control">View Source</a></p>
 <p><a href="https://soroban.stellar.org/docs">Live Demo</a></p>
@@ -3189,7 +3288,7 @@ pub fn get_proposal(env: Env, proposal_id: u32) -&gt; Option&lt;Proposal&gt;
 </span><span class="boring">fn main() {
 </span>// Code snippet coming soon
 <span class="boring">}</span></code></pre>
-<h2 id="advanced"><a class="header" href="#advanced">Advanced</a></h2>
+<h2 id="advanced-1"><a class="header" href="#advanced-1">Advanced</a></h2>
 <h3 id="01-multi-party-auth"><a class="header" href="#01-multi-party-auth">01 Multi Party Auth</a></h3>
 <p><a href="../examples/advanced/01-multi-party-auth">View Source</a></p>
 <p><a href="https://soroban.stellar.org/docs">Live Demo</a></p>
@@ -4917,6 +5016,16 @@ let value = client.get_value_strict(); // errors if stale
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="defi-examples"><a class="header" href="#defi-examples">DeFi Examples</a></h1>
 <p>Decentralized finance on Soroban: AMMs, lending, yield protocols.</p>
+<h2 id="staking-pool"><a class="header" href="#staking-pool">Staking Pool</a></h2>
+<p>A working staking example demonstrates how to build lockup duration options, calculate boost rewards, and enforce early withdrawal penalties.</p>
+<p><strong>Key Concepts:</strong></p>
+<ul>
+<li>Lockup tiers and term-based incentives</li>
+<li>Withdrawals before maturity incur a fixed penalty</li>
+<li>Longer lockups earn higher boost rewards</li>
+<li>State tracking per staker via durable storage</li>
+</ul>
+<h2 id="-coming-soon"><a class="header" href="#-coming-soon">📋 Coming Soon</a></h2>
 <h2 id="-examples-1-currently"><a class="header" href="#-examples-1-currently">📋 Examples (1 currently)</a></h2>
 <h3 id="01-vault-strategies-1"><a class="header" href="#01-vault-strategies-1"><a href="examples/vault-strategies">01-vault-strategies</a></a></h3>
 <p><strong>Multi-strategy yield vault</strong> with pluggable strategies and risk management.</p>
@@ -4938,7 +5047,7 @@ client.switch_strategy(&amp;admin, &amp;StrategyType::Balanced);
 let yield_amount = client.estimate_yield(&amp;10_000, &amp;365);
 <span class="boring">}</span></code></pre>
 <hr>
-<h2 id="-coming-soon"><a class="header" href="#-coming-soon">📋 Coming Soon</a></h2>
+<h2 id="-coming-soon-1"><a class="header" href="#-coming-soon-1">📋 Coming Soon</a></h2>
 <h3 id="automated-market-maker-amm"><a class="header" href="#automated-market-maker-amm">Automated Market Maker (AMM)</a></h3>
 <p><strong>Constant product pools</strong> (x*y=k).</p>
 <p><strong>Key Concepts:</strong></p>
@@ -4955,7 +5064,19 @@ let yield_amount = client.estimate_yield(&amp;10_000, &amp;365);
 <li>Liquidation thresholds</li>
 <li>Interest accrual</li>
 </ul>
+<h3 id="yield-vault"><a class="header" href="#yield-vault">Yield Vault</a></h3>
+<p><strong>Automated yield optimization</strong>.</p>
+<p><strong>Key Concepts:</strong></p>
+<ul>
+<li>Strategy rotation</li>
+<li>Performance fees</li>
+<li>Emergency withdrawal</li>
+</ul>
 <h2 id="prerequisites-7"><a class="header" href="#prerequisites-7">Prerequisites</a></h2>
+<ul>
+<li><a href="basics.html">Basics</a>, <a href="tokens.html">Tokens</a></li>
+</ul>
+<h2 id="prerequisites-1-1"><a class="header" href="#prerequisites-1-1">Prerequisites</a></h2>
 <ul>
 <li><a href="basics.html">Basics</a>, <a href="tokens.html">Tokens</a></li>
 </ul>
@@ -5290,7 +5411,7 @@ token_id = 7
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="governance-examples"><a class="header" href="#governance-examples">Governance Examples</a></h1>
 <p>DAOs, voting, treasury management.</p>
-<h2 id="-coming-soon-1"><a class="header" href="#-coming-soon-1">📋 Coming Soon</a></h2>
+<h2 id="-coming-soon-2"><a class="header" href="#-coming-soon-2">📋 Coming Soon</a></h2>
 <h3 id="simple-dao"><a class="header" href="#simple-dao">Simple DAO</a></h3>
 <p><strong>Token-weighted voting</strong>.</p>
 <p><strong>Key Concepts:</strong></p>
@@ -6326,6 +6447,31 @@ fn has_admin(env: &amp;Env) -&gt; bool {
 </ul>
 <hr>
 <p>For more detailed examples, see our <a href="examples">examples directory</a> and specific guides.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="testing-best-practices"><a class="header" href="#testing-best-practices">Testing Best Practices</a></h1>
+<p>Testing is a critical part of developing smart contracts on Soroban. A comprehensive testing strategy ensures that your contracts behave as expected and protects against regressions and security vulnerabilities.</p>
+<h2 id="unit-test-patterns"><a class="header" href="#unit-test-patterns">Unit Test Patterns</a></h2>
+<ul>
+<li><strong>Test each function in isolation:</strong> Ensure you test the happy path and edge cases.</li>
+<li><strong>Mock dependencies:</strong> Use <code>Env::mock_all_auths()</code> to simplify authorization testing when not explicitly testing <code>require_auth()</code>.</li>
+<li><strong>Test error handling:</strong> Use <code>#[should_panic(expected = "...")]</code> to verify that your contracts fail correctly.</li>
+</ul>
+<h2 id="integration-testing"><a class="header" href="#integration-testing">Integration Testing</a></h2>
+<ul>
+<li><strong>Cross-contract calls:</strong> Test workflows spanning multiple contracts using integration tests.</li>
+<li><strong>State transitions:</strong> Ensure that sequences of actions transition the contract state correctly.</li>
+<li><strong>Integration Test Suite:</strong> Keep integration tests in the <code>tests/integration/</code> directory, using <code>env.register_contract()</code> to load and execute contracts.</li>
+</ul>
+<h2 id="fuzz-testing"><a class="header" href="#fuzz-testing">Fuzz Testing</a></h2>
+<ul>
+<li><strong>Property-based testing:</strong> Fuzz inputs using tools like <code>proptest</code> to automatically verify contract invariants across thousands of random inputs.</li>
+<li><strong>Boundary conditions:</strong> Fuzzers often find edge cases near the limits of integer sizes (<code>u32::MAX</code>, <code>i128::MAX</code>).</li>
+</ul>
+<h2 id="coverage-goals"><a class="header" href="#coverage-goals">Coverage Goals</a></h2>
+<ul>
+<li><strong>Target &gt;90% coverage:</strong> Utilize <code>cargo tarpaulin</code> to measure test coverage.</li>
+<li><strong>Cover all branches:</strong> Ensure that conditional branches are evaluated for both truthy and falsy states.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="documentation-platform-evaluation"><a class="header" href="#documentation-platform-evaluation">Documentation Platform Evaluation</a></h1>
 <p>This note compares the repository’s current <code>mdBook</code> setup with a possible move to Docusaurus.</p>
@@ -7816,10 +7962,371 @@ async function signTx(xdrString) {
 <li><strong>Lobstr (Priority 4 - Low/Future)</strong>: Integrate once your application is deployed to Mainnet and target retail users holding standard Stellar/Soroban assets.</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="wallet-integration-guide"><a class="header" href="#wallet-integration-guide">Wallet Integration Guide</a></h1>
+<p>This guide helps Soroban developers add wallet support to web applications, dashboards, and frontends that interact with Stellar smart contracts. It focuses on practical integration patterns, expected user flows, and production recommendations for common wallets in the Stellar ecosystem.</p>
+<h2 id="table-of-contents"><a class="header" href="#table-of-contents">Table of Contents</a></h2>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#prerequisites-12">Prerequisites</a></li>
+<li><a href="#network-configuration-1">Network Configuration</a></li>
+<li><a href="#supported-wallets">Supported Wallets</a></li>
+<li><a href="#integration-examples">Integration Examples</a></li>
+<li><a href="#example-workflow">Example Workflow</a></li>
+<li><a href="#testing-guide-1">Testing Guide</a></li>
+<li><a href="#best-practices-2">Best Practices</a></li>
+<li><a href="#common-problems">Common Problems</a></li>
+<li><a href="#external-resources">External Resources</a></li>
+</ul>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Wallet integration is the layer that lets users connect their account, authorize contract calls, and approve transactions from an application. In Soroban, this matters because most contract interactions require a signed transaction or an authorization payload. A smooth wallet experience improves trust, reduces onboarding friction, and helps users understand what they are signing.</p>
+<p>For many teams, the wallet experience is part of the product itself. If users cannot connect, cannot switch networks, or receive confusing errors, adoption drops quickly. Good integration should be reliable, secure, and easy to test.</p>
+<p>The wallet ecosystem is evolving quickly. In practice, the most common starting points are:</p>
+<ul>
+<li>Freighter for browser-based development and testing</li>
+<li>xBull for desktop and mobile coverage</li>
+<li>Albedo for web-based signing flows</li>
+<li>WalletConnect-compatible wallets for mobile and browser-based DApps</li>
+</ul>
+<h2 id="prerequisites-12"><a class="header" href="#prerequisites-12">Prerequisites</a></h2>
+<p>Before you integrate wallets into a Soroban app, make sure your development environment is ready.</p>
+<h3 id="required-tools"><a class="header" href="#required-tools">Required tools</a></h3>
+<ul>
+<li>A recent Node.js installation for frontend work</li>
+<li>The Soroban / Stellar CLI for local testing and deployment</li>
+<li>The Soroban Rust SDK when building or calling contracts from Rust-based tooling</li>
+<li>A wallet extension or mobile wallet installed for manual testing</li>
+</ul>
+<h3 id="recommended-packages"><a class="header" href="#recommended-packages">Recommended packages</a></h3>
+<p>For a JavaScript or TypeScript frontend, you will typically need:</p>
+<pre><code class="language-bash">npm install @stellar/stellar-sdk
+</code></pre>
+<p>If you are using Freighter-style browser APIs, install the wallet SDK that matches your target wallet:</p>
+<pre><code class="language-bash">npm install @stellar/freighter-api
+</code></pre>
+<h3 id="environment-setup-1"><a class="header" href="#environment-setup-1">Environment setup</a></h3>
+<ol>
+<li>Install the Stellar CLI and confirm that it runs.</li>
+<li>Configure your preferred network, such as Testnet or Futurenet.</li>
+<li>Create a funded test account for manual testing.</li>
+<li>Keep the contract ID, network passphrase, and RPC endpoint in a shared config file so your frontend can use them consistently.</li>
+</ol>
+<blockquote>
+<p>Wallet support changes quickly. Always check the official provider documentation before relying on a specific API or network flow.</p>
+</blockquote>
+<h2 id="network-configuration-1"><a class="header" href="#network-configuration-1">Network Configuration</a></h2>
+<p>Handling multiple networks correctly is crucial for a smooth developer and user experience. Each Stellar network (Mainnet, Testnet, Futurenet) has a unique passphrase and RPC endpoint.</p>
+<h3 id="network-passphrases"><a class="header" href="#network-passphrases">Network Passphrases</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Network</th><th>Passphrase</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Mainnet</strong></td><td><code>Public Global Stellar Network ; September 2015</code></td></tr>
+<tr><td><strong>Testnet</strong></td><td><code>Test SDF Network ; September 2015</code></td></tr>
+<tr><td><strong>Futurenet</strong></td><td><code>Test SDF Future Network ; October 2022</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="rpc-endpoints"><a class="header" href="#rpc-endpoints">RPC Endpoints</a></h3>
+<p>Apps should allow users to connect to different RPC providers. Standard SDF endpoints include:</p>
+<ul>
+<li><strong>Testnet:</strong> <code>https://soroban-testnet.stellar.org</code></li>
+<li><strong>Futurenet:</strong> <code>https://rpc-futurenet.stellar.org</code></li>
+</ul>
+<h3 id="handling-networks-in-code"><a class="header" href="#handling-networks-in-code">Handling Networks in Code</a></h3>
+<p>When building transactions, you must use the correct passphrase:</p>
+<pre><code class="language-ts">import { Networks } from "@stellar/stellar-sdk";
+
+const networkPassphrase = Networks.TESTNET; // Or custom string for Futurenet
+</code></pre>
+<h2 id="supported-wallets"><a class="header" href="#supported-wallets">Supported Wallets</a></h2>
+<h3 id="freighter"><a class="header" href="#freighter">Freighter</a></h3>
+<ul>
+<li>Overview: Freighter is the most commonly used browser extension for Stellar and Soroban development. It is a strong default choice for local development and Testnet testing.</li>
+<li>Installation: Install the official extension from the Freighter website and confirm it is enabled in your browser.</li>
+<li>Configuration: Add your target network, such as Testnet, and allow the app to connect to it.</li>
+<li>Connection flow: Request access to the wallet, read the public address, and store the result in app state.</li>
+<li>Authentication: Use the wallet to approve account access and to sign Soroban transactions.</li>
+<li>Signing transactions: Build a transaction or contract invocation, then pass it to the wallet for signing.</li>
+<li>Sending transactions: Submit the signed XDR to a Soroban RPC endpoint.</li>
+<li>Disconnecting: Clear local application state and remove the connected address from memory.</li>
+</ul>
+<h3 id="xbull"><a class="header" href="#xbull">xBull</a></h3>
+<ul>
+<li>Overview: xBull is a broader wallet option that supports desktop and mobile use and is useful when you want a more flexible wallet experience.</li>
+<li>Installation: Install the browser extension or mobile app from the official xBull documentation.</li>
+<li>Configuration: Configure networks, RPC endpoints, and account settings for your preferred environment.</li>
+<li>Connection flow: Connect the app to the wallet and request an address or account selection.</li>
+<li>Authentication: Approve the connection request when the app first accesses the account.</li>
+<li>Signing transactions: Sign transactions through the wallet provider interface.</li>
+<li>Sending transactions: Broadcast the signed transaction using the network RPC.</li>
+<li>Disconnecting: Clear the connection from the app and prompt the user to reconnect if needed.</li>
+</ul>
+<h3 id="albedo"><a class="header" href="#albedo">Albedo</a></h3>
+<ul>
+<li>Overview: Albedo provides a web-based signing experience that can be helpful for users who prefer not to install a browser extension.</li>
+<li>Installation: No extension is required. Open the wallet flow from your app and follow the web-based sign-in experience.</li>
+<li>Configuration: Configure the app redirect and network details according to the official instructions.</li>
+<li>Connection flow: Redirect the user to the Albedo flow, confirm the requested scopes, and receive the response.</li>
+<li>Authentication: Approve the application access request in the Albedo UI.</li>
+<li>Signing transactions: Request a transaction signature and receive the signed output.</li>
+<li>Sending transactions: Submit the signed transaction to the network after the wallet returns the signature.</li>
+<li>Disconnecting: Clear the session state in your app and instruct the user to start a new signing flow if needed.</li>
+</ul>
+<h3 id="walletconnect-compatible-solutions"><a class="header" href="#walletconnect-compatible-solutions">WalletConnect-compatible solutions</a></h3>
+<ul>
+<li>Overview: WalletConnect is commonly used for connecting web apps to mobile wallets or other provider ecosystems.</li>
+<li>Installation: Use the official WalletConnect SDK in your frontend and ensure the wallet supports the same protocol version.</li>
+<li>Configuration: Configure a project ID and the required chain metadata for your app.</li>
+<li>Connection flow: Open a connection modal, choose the wallet, and approve the session.</li>
+<li>Authentication: Ask the wallet to approve the session and any required account scopes.</li>
+<li>Signing transactions: Use the WalletConnect signing flow and return the signed transaction payload.</li>
+<li>Sending transactions: Broadcast the signed transaction using your RPC client.</li>
+<li>Disconnecting: End the session in your app and prompt the user to reconnect as needed.</li>
+</ul>
+<h2 id="integration-examples"><a class="header" href="#integration-examples">Integration Examples</a></h2>
+<p>The examples below are intentionally simple and follow the same mental model across wallets: connect, inspect the wallet state, sign, submit, and handle errors.</p>
+<h3 id="connecting-a-wallet"><a class="header" href="#connecting-a-wallet">Connecting a wallet</a></h3>
+<pre><code class="language-ts">import { requestAccess, getAddress } from "@stellar/freighter-api";
+
+async function connectWallet() {
+  const allowed = await requestAccess();
+  if (!allowed) {
+    throw new Error("Wallet access denied by the user");
+  }
+
+  const address = await getAddress();
+  return address;
+}
+</code></pre>
+<h3 id="checking-connection-status"><a class="header" href="#checking-connection-status">Checking connection status</a></h3>
+<pre><code class="language-ts">async function getConnectionStatus() {
+  // Use the wallet SDK or provider method that exposes connectivity state.
+  // The exact API varies by wallet.
+  return {
+    connected: true,
+    network: "TESTNET"
+  };
+}
+</code></pre>
+<h3 id="signing-a-transaction"><a class="header" href="#signing-a-transaction">Signing a transaction</a></h3>
+<pre><code class="language-ts">import { signTransaction } from "@stellar/freighter-api";
+
+async function signSorobanTx(xdr: string) {
+  const signedXdr = await signTransaction(xdr, { network: "TESTNET" });
+  return signedXdr;
+}
+</code></pre>
+<h3 id="submitting-a-transaction"><a class="header" href="#submitting-a-transaction">Submitting a transaction</a></h3>
+<pre><code class="language-ts">import { Server, TransactionBuilder, Networks } from "@stellar/stellar-sdk";
+
+async function submitTransaction(signedXdr: string) {
+  const server = new Server("https://soroban-testnet.stellar.org");
+  const tx = TransactionBuilder.fromXDR(signedXdr, Networks.TESTNET);
+  const result = await server.sendTransaction(tx);
+  return result;
+}
+</code></pre>
+<h3 id="handling-user-rejection"><a class="header" href="#handling-user-rejection">Handling user rejection</a></h3>
+<pre><code class="language-ts">try {
+  await connectWallet();
+} catch (error) {
+  console.warn("User rejected the connection request", error);
+}
+</code></pre>
+<h3 id="handling-network-errors"><a class="header" href="#handling-network-errors">Handling network errors</a></h3>
+<pre><code class="language-ts">try {
+  await submitTransaction("signed-xdr");
+} catch (error) {
+  console.error("Transaction submission failed", error);
+}
+</code></pre>
+<h3 id="switching-networks"><a class="header" href="#switching-networks">Switching networks</a></h3>
+<p>If your app supports multiple networks, check the wallet state before sending a transaction. Some wallets let the user switch networks manually, while others require you to prompt the user to switch to the correct network in the wallet UI.</p>
+<pre><code class="language-ts">function ensureNetwork(targetNetwork: string) {
+  if (targetNetwork !== "TESTNET") {
+    throw new Error("This example only supports TESTNET");
+  }
+}
+</code></pre>
+<h2 id="example-workflow"><a class="header" href="#example-workflow">Example Workflow</a></h2>
+<p>The following example demonstrates a complete flow: connecting the wallet, building a transaction, signing it, and submitting it to the network.</p>
+<pre><code class="language-ts">import {
+  requestAccess,
+  getAddress,
+  signTransaction
+} from "@stellar/freighter-api";
+import {
+  Server,
+  TransactionBuilder,
+  Networks,
+  Address,
+  Contract
+} from "@stellar/stellar-sdk";
+
+async function runExampleWorkflow(contractId: string, method: string, args: any[]) {
+  try {
+    // 1. Connect Wallet
+    const allowed = await requestAccess();
+    if (!allowed) throw new Error("Wallet access denied");
+    const userAddress = await getAddress();
+
+    // 2. Initialize Server and Network
+    const server = new Server("https://soroban-testnet.stellar.org");
+    const networkPassphrase = Networks.TESTNET;
+
+    // 3. Fetch Account Details
+    const account = await server.getAccount(userAddress);
+
+    // 4. Build Contract Invocation
+    const contract = new Contract(contractId);
+    let tx = new TransactionBuilder(account, {
+      fee: "100", // Placeholder fee, will be updated during preparation
+      networkPassphrase,
+    })
+    .addOperation(contract.call(method, ...args))
+    .setTimeout(30)
+    .build();
+
+    // 5. Prepare Transaction (Simulation)
+    // This step is critical for Soroban to calculate resource usage (footprint, instructions)
+    tx = await server.prepareTransaction(tx);
+
+    // 6. Sign Transaction
+    const signedXdr = await signTransaction(tx.toXDR(), {
+      network: "TESTNET"
+    });
+
+    // 7. Submit Transaction
+    const result = await server.sendTransaction(
+      TransactionBuilder.fromXDR(signedXdr, networkPassphrase)
+    );
+
+    console.log("Transaction Success:", result.hash);
+    return result;
+
+  } catch (error) {
+    console.error("Workflow failed:", error);
+    throw error;
+  }
+}
+</code></pre>
+<h2 id="testing-guide-1"><a class="header" href="#testing-guide-1">Testing Guide</a></h2>
+<p>Testing wallet flows is critical because they involve user consent, network configuration, and external providers.</p>
+<h3 id="local-testing"><a class="header" href="#local-testing">Local testing</a></h3>
+<ul>
+<li>Use a local development wallet account and a funded test account.</li>
+<li>Prefer Testnet for manual integration checks.</li>
+<li>Keep your RPC endpoints and network passphrases in a config file.</li>
+<li>Test both success and failure flows.</li>
+</ul>
+<h3 id="testnet-testing"><a class="header" href="#testnet-testing">Testnet testing</a></h3>
+<ul>
+<li>Use Testnet contracts and test accounts rather than mainnet funds.</li>
+<li>Verify that signatures and submitted transactions behave as expected on the network.</li>
+<li>Track the transaction hash and inspect the result through the Stellar explorer or RPC response.</li>
+</ul>
+<h3 id="mock-wallets-where-applicable"><a class="header" href="#mock-wallets-where-applicable">Mock wallets where applicable</a></h3>
+<p>If you are building a frontend test suite, mock the wallet provider interface instead of trying to depend on the real wallet during automated tests. Keep the mock close to the provider boundary and verify that the app responds correctly to connection success, rejection, and network errors.</p>
+<h3 id="common-debugging-steps"><a class="header" href="#common-debugging-steps">Common debugging steps</a></h3>
+<ol>
+<li>Check whether the wallet is installed and enabled.</li>
+<li>Confirm that the network selected in the wallet matches your app’s target network.</li>
+<li>Verify the transaction XDR is built for the same network and passphrase.</li>
+<li>Inspect RPC errors and wallet error messages for clues.</li>
+<li>Log the request object and the wallet error before retrying.</li>
+</ol>
+<h3 id="troubleshooting-common-integration-issues"><a class="header" href="#troubleshooting-common-integration-issues">Troubleshooting common integration issues</a></h3>
+<ul>
+<li>Wallet not detected: confirm the extension is installed and the app is running in a supported browser context.</li>
+<li>User rejected signature: treat this as a normal user flow and show a clear message.</li>
+<li>Wrong network selected: prompt the user to switch to the correct network.</li>
+<li>Transaction failed: inspect the RPC response, fee, and submitted operations.</li>
+<li>RPC connection issues: verify the endpoint and retry with a fallback node if available.</li>
+</ul>
+<h2 id="best-practices-2"><a class="header" href="#best-practices-2">Best Practices</a></h2>
+<h3 id="security"><a class="header" href="#security">Security</a></h3>
+<ul>
+<li>Never store private keys in frontend code.</li>
+<li>Treat every transaction as a user-authorized action, even if the request is generated locally.</li>
+<li>Verify the transaction details before asking the user to sign.</li>
+<li>Prefer explicit user confirmation for high-impact operations.</li>
+</ul>
+<h3 id="private-key-safety"><a class="header" href="#private-key-safety">Private key safety</a></h3>
+<ul>
+<li>Keep signing keys and seed phrases offline whenever possible.</li>
+<li>Use hardware-backed or secure key storage for administrative accounts.</li>
+<li>Avoid exposing secret material through logs, browser devtools, or analytics.</li>
+</ul>
+<h3 id="transaction-verification"><a class="header" href="#transaction-verification">Transaction verification</a></h3>
+<ul>
+<li>Confirm the source account, network passphrase, contract ID, and fee before signing.</li>
+<li>Validate the transaction preconditions and any parameters passed to the contract.</li>
+<li>Make sure the user understands what they are authorizing.</li>
+</ul>
+<h3 id="error-handling-3"><a class="header" href="#error-handling-3">Error handling</a></h3>
+<ul>
+<li>Show actionable error messages instead of generic failures.</li>
+<li>Distinguish between user rejection, network issues, and invalid transaction input.</li>
+<li>Retry only when the failure is transient and safe.</li>
+</ul>
+<h3 id="user-experience"><a class="header" href="#user-experience">User experience</a></h3>
+<ul>
+<li>Keep the connection flow short and explain why the app needs access.</li>
+<li>Provide a fallback when the wallet extension is missing.</li>
+<li>Show clear loading and success states for signing and submission.</li>
+</ul>
+<h3 id="network-selection"><a class="header" href="#network-selection">Network selection</a></h3>
+<ul>
+<li>Default to Testnet for development and staging.</li>
+<li>Make the active network visible in the UI.</li>
+<li>Detect and warn the user when the wallet is on a different network than the app.</li>
+</ul>
+<h3 id="session-management"><a class="header" href="#session-management">Session management</a></h3>
+<ul>
+<li>Store only the minimal wallet state needed for the current session.</li>
+<li>Clear stale account state when the user disconnects or switches accounts.</li>
+<li>Reconnect gracefully when the tab or page is refreshed.</li>
+</ul>
+<h3 id="dependency-management"><a class="header" href="#dependency-management">Dependency management</a></h3>
+<ul>
+<li>Pin wallet-related packages to versions that have been tested in your environment.</li>
+<li>Revisit wallet SDK compatibility when upgrading dependencies.</li>
+<li>Keep provider integrations behind a small abstraction so wallet-specific code is isolated.</li>
+</ul>
+<h2 id="common-problems"><a class="header" href="#common-problems">Common Problems</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Problem</th><th>Likely cause</th><th>Suggested fix</th></tr>
+</thead>
+<tbody>
+<tr><td>Wallet not detected</td><td>Extension is not installed or the browser context is unsupported</td><td>Verify installation and browser support, then retry</td></tr>
+<tr><td>User rejected signature</td><td>The user canceled the signing request</td><td>Show a clear message and let the user retry</td></tr>
+<tr><td>Wrong network selected</td><td>The wallet and app are on different networks</td><td>Prompt the user to switch networks</td></tr>
+<tr><td>Transaction failed</td><td>Bad parameters, bad fee, or invalid contract invocation</td><td>Inspect the RPC response and rebuild the transaction</td></tr>
+<tr><td>RPC connection issues</td><td>The node is unavailable or the network endpoint is misconfigured</td><td>Retry with another RPC provider or update the endpoint</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="external-resources"><a class="header" href="#external-resources">External Resources</a></h2>
+<ul>
+<li><a href="https://developers.stellar.org/">Stellar Developer Documentation</a></li>
+<li><a href="https://developers.stellar.org/docs/smart-contracts">Soroban Documentation</a></li>
+<li><a href="https://docs.rs/soroban-sdk/">Soroban Rust SDK</a></li>
+<li><a href="https://www.freighter.app/">Freighter Documentation</a></li>
+<li><a href="https://xbull.app/">xBull Wallet Documentation</a></li>
+<li><a href="https://albedo.link/">Albedo Documentation</a></li>
+<li><a href="https://docs.walletconnect.com/">WalletConnect Documentation</a></li>
+</ul>
+<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
+<p>A good wallet integration experience is a combination of reliable provider support, clear error handling, and careful testing. Start with the wallet that best matches your audience and your development environment, then expand coverage as your app matures.</p>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="security-best-practices-for-soroban-smart-contracts"><a class="header" href="#security-best-practices-for-soroban-smart-contracts">Security Best Practices for Soroban Smart Contracts</a></h1>
 <p>A practical guide to writing secure Soroban contracts, covering common vulnerabilities, defensive patterns, and a pre-deployment audit checklist with real contract examples.</p>
 <hr>
-<h2 id="table-of-contents"><a class="header" href="#table-of-contents">Table of Contents</a></h2>
+<h2 id="table-of-contents-1"><a class="header" href="#table-of-contents-1">Table of Contents</a></h2>
 <ol>
 <li><a href="#1-common-vulnerabilities">Common Vulnerabilities</a></li>
 <li><a href="#2-secure-patterns">Secure Patterns</a></li>
@@ -8320,6 +8827,157 @@ pub fn transfer(
 <li><a href="https://docs.rs/soroban-sdk">Soroban SDK Documentation</a></li>
 <li><a href="https://www.stellar.org/security">Stellar Security Disclosure Policy</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="site-search"><a class="header" href="#site-search">Site Search</a></h1>
+<p>The Soroban Cookbook has full-text search built in via <a href="https://rust-lang.github.io/mdBook/guide/reading.html#search">mdBook’s search feature</a>.</p>
+<h2 id="how-to-search"><a class="header" href="#how-to-search">How to Search</a></h2>
+<p>Press <strong><code>S</code></strong> or click the <strong>magnifying glass</strong> icon in the top-left toolbar to open the search bar.</p>
+<p>Type any keyword, function name, concept, or code snippet — results appear instantly as you type.</p>
+<h2 id="search-features"><a class="header" href="#search-features">Search Features</a></h2>
+<h3 id="full-text-search"><a class="header" href="#full-text-search">Full-Text Search</a></h3>
+<p>Every page, heading, and paragraph in the cookbook is indexed at build time. Queries match anywhere in the content.</p>
+<h3 id="code-search"><a class="header" href="#code-search">Code Search</a></h3>
+<p>Code blocks are included in the search index. You can search for:</p>
+<ul>
+<li>Soroban macros: <code>contractimpl</code>, <code>contracttype</code>, <code>symbol_short</code></li>
+<li>Function names: <code>invoke_contract</code>, <code>get_ledger_timestamp</code></li>
+<li>Error types: <code>ContractError</code>, <code>AuthError</code></li>
+<li>Crate names: <code>soroban-sdk</code>, <code>stellar-xdr</code></li>
+</ul>
+<p>Example searches:</p>
+<pre><code>token transfer
+invoke_contract auth
+storage get put
+</code></pre>
+<h3 id="search-suggestions-auto-expand"><a class="header" href="#search-suggestions-auto-expand">Search Suggestions (Auto-Expand)</a></h3>
+<p>The search engine automatically expands partial words. Searching for <code>token</code> also matches <code>tokenize</code>, <code>tokenomics</code>, etc. This is powered by the <code>expand = true</code> setting in <code>book.toml</code>.</p>
+<h3 id="boolean-and-mode"><a class="header" href="#boolean-and-mode">Boolean AND Mode</a></h3>
+<p>By default, all search terms must appear in a result (AND logic). A search for <code>storage persistent</code> only returns pages that contain <strong>both</strong> words.</p>
+<h3 id="result-ranking"><a class="header" href="#result-ranking">Result Ranking</a></h3>
+<p>Results are ranked by relevance using boost weights:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Match location</th><th>Boost</th></tr>
+</thead>
+<tbody>
+<tr><td>Page title</td><td>2×</td></tr>
+<tr><td>Section heading</td><td>1×</td></tr>
+<tr><td>Paragraph text</td><td>1×</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="keyboard-navigation"><a class="header" href="#keyboard-navigation">Keyboard Navigation</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Key</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td><code>S</code></td><td>Open search</td></tr>
+<tr><td><code>↑</code> / <code>↓</code></td><td>Move through results</td></tr>
+<tr><td><code>Enter</code></td><td>Open highlighted result</td></tr>
+<tr><td><code>Escape</code></td><td>Close search</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="search-index"><a class="header" href="#search-index">Search Index</a></h2>
+<p>The search index (<code>searchindex.json</code>) is generated automatically during <code>mdbook build</code> and is stored alongside the HTML output. It contains:</p>
+<ul>
+<li>All page titles and headings</li>
+<li>Full paragraph text</li>
+<li>Code block contents</li>
+<li>Hierarchical section paths (used for breadcrumb display in results)</li>
+</ul>
+<p>No external service is required — search runs entirely in the browser using the bundled JavaScript.</p>
+<h2 id="tips-for-better-results"><a class="header" href="#tips-for-better-results">Tips for Better Results</a></h2>
+<ul>
+<li>Use <strong>specific terms</strong> — <code>pause_contract</code> finds more targeted results than <code>pause</code></li>
+<li>Search for <strong>error messages</strong> you encounter to jump directly to troubleshooting content</li>
+<li>Search by <strong>pattern name</strong> — <code>factory</code>, <code>proxy</code>, <code>oracle</code>, <code>vault</code></li>
+<li>Combine terms — <code>defi vault fee</code> narrows results across DeFi vault examples</li>
+</ul>
+<h2 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h2>
+<p>Search is configured in <code>book/book.toml</code>:</p>
+<pre><code class="language-toml">[output.html.search]
+enable = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+copy-js = true
+</code></pre>
+<p>To rebuild the search index after adding new content:</p>
+<pre><code class="language-bash">cd book &amp;&amp; mdbook build
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="community-guidelines"><a class="header" href="#community-guidelines">Community Guidelines</a></h1>
+<p>Welcome to the Soroban Cookbook community. These guidelines exist to keep our spaces welcoming, productive, and safe for everyone.</p>
+<h2 id="our-values"><a class="header" href="#our-values">Our Values</a></h2>
+<ul>
+<li><strong>Openness</strong> — We welcome contributors of all backgrounds and experience levels.</li>
+<li><strong>Respect</strong> — We treat every person with dignity in every interaction.</li>
+<li><strong>Collaboration</strong> — We share knowledge freely and help each other grow.</li>
+<li><strong>Quality</strong> — We take pride in correct, well-tested, clearly documented work.</li>
+</ul>
+<h2 id="participation-standards"><a class="header" href="#participation-standards">Participation Standards</a></h2>
+<h3 id="what-we-encourage"><a class="header" href="#what-we-encourage">What we encourage</a></h3>
+<ul>
+<li>Asking questions, no matter how basic they may seem.</li>
+<li>Giving and receiving constructive feedback on code and documentation.</li>
+<li>Sharing real-world usage patterns, gotchas, and lessons learned.</li>
+<li>Helping newcomers find their footing in the Soroban ecosystem.</li>
+<li>Linking to upstream Stellar or Soroban resources when relevant.</li>
+</ul>
+<h3 id="what-is-not-acceptable"><a class="header" href="#what-is-not-acceptable">What is not acceptable</a></h3>
+<ul>
+<li>Harassment, intimidation, or personal attacks of any kind.</li>
+<li>Discriminatory language or behaviour related to age, disability, ethnicity, gender identity, nationality, religion, sexual orientation, or any other personal characteristic.</li>
+<li>Publishing private information (contact details, location, etc.) of others without consent.</li>
+<li>Spam, off-topic promotion, or low-effort contributions intended only to game metrics.</li>
+<li>Deliberately submitting broken, insecure, or plagiarised code as original work.</li>
+</ul>
+<p>These standards apply in all community spaces: GitHub issues, pull requests, code review comments, discussions, Discord channels, and any public forum where the cookbook is represented.</p>
+<h2 id="code-of-conduct"><a class="header" href="#code-of-conduct">Code of Conduct</a></h2>
+<p>This project is governed by the <a href="#contributor-covenant-code-of-conduct">Contributor Covenant Code of Conduct</a>. All community members are expected to uphold it. The Code of Conduct describes our standards in detail and the escalating enforcement actions available to maintainers.</p>
+<h2 id="reporting-unacceptable-behaviour"><a class="header" href="#reporting-unacceptable-behaviour">Reporting Unacceptable Behaviour</a></h2>
+<p>If you witness or experience behaviour that violates these guidelines or the Code of Conduct, please report it through one of the following channels:</p>
+<ol>
+<li><strong>GitHub</strong> — Open a <a href="https://github.com/Soroban-Cookbook/Soroban-Cookbook-/issues">confidential issue</a> labelled <code>conduct</code> or contact a maintainer directly via GitHub.</li>
+<li><strong>Email</strong> — Reach the maintainer team at <strong>maintainers@sorobancookbook.dev</strong>.</li>
+</ol>
+<p>All reports are reviewed promptly and in confidence. The identity of the reporter will not be shared without explicit consent.</p>
+<h2 id="enforcement"><a class="header" href="#enforcement">Enforcement</a></h2>
+<p>Maintainers are responsible for clarifying and enforcing these guidelines. Upon receiving a report, they will:</p>
+<ol>
+<li>Acknowledge the report within <strong>two business days</strong>.</li>
+<li>Review the incident privately with the relevant maintainers.</li>
+<li>Determine an appropriate response according to the severity levels below.</li>
+<li>Communicate the outcome to the reporter.</li>
+</ol>
+<h3 id="severity-levels-and-consequences"><a class="header" href="#severity-levels-and-consequences">Severity levels and consequences</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Level</th><th>Behaviour</th><th>Consequence</th></tr>
+</thead>
+<tbody>
+<tr><td>1 — Correction</td><td>Isolated inappropriate language or minor misconduct</td><td>Private written warning; public apology may be requested</td></tr>
+<tr><td>2 — Warning</td><td>Pattern of minor violations or a single significant incident</td><td>Formal warning; temporary restriction from community spaces</td></tr>
+<tr><td>3 — Temporary ban</td><td>Serious violation or sustained disruptive behaviour</td><td>Temporary ban from all community interaction</td></tr>
+<tr><td>4 — Permanent ban</td><td>Repeated severe violations or targeted harassment</td><td>Permanent removal from all community spaces</td></tr>
+</tbody>
+</table>
+</div>
+<p>Maintainers exercise judgement in applying these levels; the table is a guide, not a rigid formula.</p>
+<h2 id="contributing-2"><a class="header" href="#contributing-2">Contributing</a></h2>
+<p>Before submitting a pull request, please review <a href="#contributing-to-soroban-cookbook">CONTRIBUTING.md</a> for technical requirements and workflow expectations.</p>
+<h2 id="acknowledgements"><a class="header" href="#acknowledgements">Acknowledgements</a></h2>
+<p>These guidelines are informed by the <a href="https://www.contributor-covenant.org/">Contributor Covenant</a> and the practices of other open-source communities in the Rust and Stellar ecosystems.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="contributing-to-soroban-cookbook"><a class="header" href="#contributing-to-soroban-cookbook">Contributing to Soroban Cookbook</a></h1>
 <p>Thank you for your interest in contributing to the Soroban Cookbook! This project aims to be a comprehensive resource for Soroban developers, and your contributions are what make it great.</p>
