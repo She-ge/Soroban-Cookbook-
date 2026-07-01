@@ -284,6 +284,14 @@ cargo test --workspace --all-features
 cargo build --workspace --target wasm32-unknown-unknown --release
 ```
 
+### Collaborative Content with Stellar
+
+We collaborate closely with the Stellar Development Foundation to provide high-quality developer resources:
+- **Joint Blog Posts**: Watch for our technical deep dives on the [official Stellar blog](https://stellar.org/blog).
+- **Co-hosted Events**: We regularly participate in Stellar community calls and hackathons.
+- **Shared Examples**: Selected cookbook examples are featured in the [Soroban documentation](https://developers.stellar.org/docs/smart-contracts).
+- **Cross-linking**: We ensure our patterns align directly with Stellar's recommended practices.
+- **Regular Sync Meetings**: We align our roadmap with upcoming Soroban releases to provide up-to-date content.
 ## Community & Integration
 
 The Soroban Cookbook is integrated into the official Stellar Developer ecosystem as a featured community resource. We work in tandem with the Stellar Development Foundation (SDF) and community developers to ensure our examples and guides align with the official documentation and best practices.
