@@ -1,75 +1,36 @@
-name: Deploy Documentation
+name: Deploy Docs
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    branches: ["main"]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install mdBook
-        run: |
-          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.35/mdbook-v0.4.35-x86_64-unknown-linux-gnu.tar.gz | tar xz -C /usr/local/bin
-
-      - name: Build documentation
-        run: |
-          cd book
-          mdbook build
-          echo "Documentation built successfully"
-
-      - name: Upload artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: book/book
-
-  deploy-preview:
-    if: github.event_name == 'pull_request'
-    needs: build
+  deploy:
+    name: Build and Deploy Docs
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      deployments: write
-      pull-requests: write
+      contents: write
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
 
       - name: Install mdBook
-        run: |
-          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.35/mdbook-v0.4.35-x86_64-unknown-linux-gnu.tar.gz | tar xz -C /usr/local/bin
+        run: cargo install mdbook --locked
 
       - name: Build documentation
-        run: |
-          cd book
-          mdbook build
+        working-directory: book
+        run: mdbook build
 
-      - name: Deploy preview
-        uses: rossjrw/pr-preview-action@v1
-        with:
-          source-dir: book/book
-          preview-branch: gh-pages-preview
-          umbrella-dir: pr-preview
-
-  deploy-production:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./book/book-output
+          publish_branch: gh-pages
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
