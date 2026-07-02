@@ -11,13 +11,21 @@ build-dir = "book-output"
 [output.html]
 default-theme = "rust"
 preferred-dark-theme = "navy"
-git-repository-url = "https://github.com/Soroban-Cookbook/Soroban-Cookbook"
-edit-url-template = "https://github.com/Soroban-Cookbook/Soroban-Cookbook/edit/main/{path}"
+site-url = "/Soroban-Cookbook-/"
+git-repository-url = "https://github.com/Soroban-Cookbook/Soroban-Cookbook-"
+edit-url-template = "https://github.com/Soroban-Cookbook/Soroban-Cookbook-/edit/main/book/{path}"
 
 [output.html.code]
 
 [output.html.search]
 enable = true
-limit-results = 25
+limit-results = 30
+teaser-word-count = 30
 use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+copy-js = true
 
