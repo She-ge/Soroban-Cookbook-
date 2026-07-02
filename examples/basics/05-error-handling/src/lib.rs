@@ -322,14 +322,6 @@ impl ErrorDemoContract {
             .get(&DataKey::Paused)
             .unwrap_or(false)
     }
-
-    /// Converts lower-level math errors into contract-level errors.
-    pub fn divide_with_conversion(a: i128, b: i128) -> Result<i128, ContractError> {
-        if b == 0 {
-            return Err(ContractError::ZeroAmount);
-        }
-        Ok(a / b)
-    }
 }
 
 #[cfg(test)]

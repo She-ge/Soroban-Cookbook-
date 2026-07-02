@@ -2,7 +2,6 @@
 
 **A comprehensive guide to building smart contracts on Stellar with Soroban**
 
-[![CI](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/ci.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/ci.yml)
 [![Test and Lint](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/test.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/test.yml)
 [![Security Audit](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/security-audit.yml/badge.svg)](https://github.com/Soroban-Cookbook/Soroban-Cookbook-/actions/workflows/security-audit.yml)
 [![codecov](https://codecov.io/gh/Soroban-Cookbook/Soroban-Cookbook-/branch/main/graph/badge.svg)](https://codecov.io/gh/Soroban-Cookbook/Soroban-Cookbook-)
@@ -19,34 +18,29 @@
 - [Documentation](#documentation)
 - [Web Application](#web-application)
 - [Contributing](#contributing)
+- [Community & Integration](#community--integration)
 - [Additional Resources](#additional-resources)
 - [License](#license)
 
 ## Project Overview and Goals
 
-The Soroban Cookbook is a community-driven developer resource for building smart contracts on the [Stellar](https://stellar.org) network using [Soroban](https://developers.stellar.org/docs/smart-contracts). It provides clear, well-documented examples and practical patterns for developers at every level — from a first "Hello World" contract to production-grade DeFi protocols
+The **Soroban Cookbook** is a comprehensive, production-grade learning resource and pattern library for developers building smart contracts on the [Stellar](https://stellar.org) network using [Soroban](https://developers.stellar.org/docs/smart-contracts). Designed to complement the official Stellar Developer Documentation, it provides clear, well-tested, and documented code recipes for smart contract development at every level — from absolute beginners writing their first "Hello World" contract to senior engineers deploying complex DeFi protocols.
 
-## Project Goals
+### Key Pillars & Goals
 
-- Make Soroban contract development easier by providing concrete, real-world examples to the problems
-- Teach safe Soroban and Rust patterns through documentation and tests
-- Support beginners and advanced developers with clearly organized examples
-- Keep repository examples current with Stellar and Soroban tooling
-- Maintain high-quality CI, build, and test coverage for every contribution
+- **Education:** Provide clear, production-ready, and secure code patterns that teach safe Soroban and Rust development.
+- **Acceleration:** Drastically speed up the onboarding process for developers entering the Stellar/Soroban ecosystem.
+- **Standardization:** Establish, document, and promote best practices and design patterns for smart contract architecture on Stellar.
+- **Ecosystem Quality:** Maintain a high standard of quality through complete automated test coverage, Clippy verification, and security audits for every example.
+
+### Code Quality Standards
 
 Every example in this cookbook:
-
-- Compiles with the latest stable Soroban SDK
-- Includes comprehensive unit and integration tests
-- Features inline documentation explaining key concepts
-- Follows Rust and Soroban best practices
-- Passes all automated CI/CD checks
-
-**Project Goals:**
-- **Education:** Provide clear, production-ready, and secure examples for Soroban developers.
-- **Acceleration:** Speed up the onboarding process for the Stellar/Soroban ecosystem.
-- **Standardization:** Establish and document best practices for smart contract architecture on Stellar.
-- **Community:** Foster a collaborative environment for developers to share patterns and solutions.
+- Compiles successfully using the latest stable Soroban SDK.
+- Contains comprehensive unit and integration tests verifying all critical code paths.
+- Enforces strict security boundaries and adheres to standard Rust/Soroban best practices.
+- Features detailed, inline explanations of architectural design and storage decisions.
+- Passes all CI/CD pipelines including formatting, clippy lints, and test suites.
 
 ## Quick Start
 
@@ -141,11 +135,15 @@ Core Soroban concepts, one at a time.
 | [04-events](./examples/basics/04-events/) | `env.events().publish()`, topic design |
 | [05-auth-context](./examples/basics/05-auth-context/) | Cross-contract execution context |
 | [05-error-handling](./examples/basics/05-error-handling/) | Error enums, validation, propagation |
-| [06-soroban-types](./examples/basics/06-soroban-types/) | `Address`, `Symbol`, `Bytes`, `Map`, `Vec` |
 | [06-validation-patterns](./examples/basics/06-validation-patterns/) | Precondition checks, overflow-safe arithmetic |
-| [07-enum-types](./examples/basics/07-enum-types/) | `#[contracttype]` enums, role dispatch |
-| [08-custom-structs](./examples/basics/08-custom-structs/) | `#[contracttype]` structs, nested types |
-| [09-primitive-types](./examples/basics/09-primitive-types/) | `u32`, `u64`, `i128`, arithmetic safety |
+| [07-type-conversions](./examples/basics/07-type-conversions/) | `TryFromVal`, `IntoVal`, safe narrowing |
+| [08-soroban-types](./examples/basics/08-soroban-types/) | `Address`, `Symbol`, `Bytes`, `Map`, `Vec` |
+| [09-enum-types](./examples/basics/09-enum-types/) | `#[contracttype]` enums, role dispatch |
+| [10-custom-structs](./examples/basics/10-custom-structs/) | `#[contracttype]` structs, nested types |
+| [11-primitive-types](./examples/basics/11-primitive-types/) | `u32`, `u64`, `i128`, arithmetic safety |
+| [12-data-types](./examples/basics/12-data-types/) | Full type system reference |
+| [13-collection-types](./examples/basics/13-collection-types/) | `Vec`, `Map` collection patterns |
+| [14-event-filtering](./examples/basics/14-event-filtering/) | Indexer-friendly event topics |
 
 #### [Intermediate](./examples/intermediate/)
 
@@ -184,6 +182,7 @@ Step-by-step tutorials in the [book](./book/src/guides/):
 | [Testing](./book/src/guides/testing.md) | Unit tests, integration tests, best practices |
 | [Deployment](./book/src/guides/deployment.md) | Deploy to testnet and mainnet |
 | [Ethereum to Soroban](./book/src/guides/ethereum-to-soroban.md) | Solidity → Rust pattern translation |
+| [Freighter Wallet Integration](./guides/freighter-wallet-integration.md) | Practical guide to connecting and interacting with Freighter Wallet |
 
 ## Documentation
 
@@ -191,9 +190,14 @@ Reference docs in [docs/](./docs/):
 
 - [Best Practices](./docs/best-practices.md) — Security, storage, and code quality guidelines
 - [Style Guide](./docs/style-guide.md) — Naming, documentation, and testing standards
+- [Performance Benchmarks](./docs/benchmarks.md) — Resource usage comparison and optimization tips
 - [Quick Reference](./docs/quick-reference.md) — Cheat sheet for common patterns
 - [Glossary](./docs/glossary.md) — Key terms and concepts
 - [Troubleshooting](./docs/troubleshooting.md) — Common build, test, and deployment issues with solutions
+- [Wallet Integration Guide](./docs/wallet-integration.md) — Practical patterns for connecting wallets to Soroban apps
+
+- [Wallet Ecosystem Survey](./book/src/docs/wallet-ecosystem.md) — Research, features comparison, and integration priority list for Soroban-compatible wallets
+
 
 The full documentation site is built with [mdBook](https://rust-lang.github.io/mdBook/) and deployed to GitHub Pages on every push to `main`.
 
@@ -212,6 +216,54 @@ cd webapp
 npm install
 npm run dev
 ```
+
+## Governance Integration Tests
+
+The governance integration test suite lives in `tests/integration/tests/governance_tests.rs` and covers the three governance contracts in `examples/governance/`.
+
+### Running the tests
+
+```bash
+# Run only the governance integration tests
+cargo test -p integration-tests governance
+
+# Run the full integration test suite
+cargo test -p integration-tests
+
+# Run all workspace tests
+cargo test
+```
+
+### Test coverage summary
+
+30 integration tests across 8 categories:
+
+| # | Category | Tests |
+|---|----------|-------|
+| 1 | Proposal lifecycle | creation, not-initialized error, submit, execute, reject |
+| 2 | Voting | successful vote, duplicate prevention, deadline enforcement, quorum |
+| 3 | DAO treasury | deposit, withdrawal via governance, over-withdrawal guard |
+| 4 | Authorization | invalid proposer cancel, invalid executor while active |
+| 5 | Multiple / concurrent proposals | independent IDs, concurrent vote outcomes |
+| 6 | Delegation | create, remove, delegated weight voting, zero-weight edge case |
+| 7 | Voting-time-constraints | proposal creation, post-deadline rejection, full lifecycle |
+| 8 | End-to-end | cross-contract governance action, full community vote workflow |
+
+### Governance scenarios covered
+
+- Full proposal lifecycle: `Draft → Active → Passed/Failed → Executed`
+- DAO treasury operations via governance-dispatched cross-contract calls
+- Delegation registry: delegates vote with accumulated weight
+- `simple-voting` one-address-one-vote with timestamp deadlines
+- `voting-time-constraints` grace-period lifecycle with early-closure
+- Authorization failures (unauthorized cancel, premature execution, over-withdrawal)
+
+### Test environment assumptions
+
+- Tests run natively (no WASM compilation required) using `env.mock_all_auths()`.
+- `proposal-lifecycle` uses **ledger sequence numbers** for timing; tests advance with `env.ledger().set_sequence_number(...)`.
+- `simple-voting` and `voting-time-constraints` use **ledger timestamps**; tests advance with `env.ledger().set_timestamp(...)`.
+- Treasury and delegation functionality is provided by lightweight mock contracts defined in the test file (`MockTreasury`, `MockDelegation`), because dedicated treasury/delegation contracts are not yet in the repo.
 
 ## Contributing
 
@@ -232,6 +284,25 @@ cargo clippy --all-targets --all-features -- -D warnings
 cargo test --workspace --all-features
 cargo build --workspace --target wasm32-unknown-unknown --release
 ```
+
+### Collaborative Content with Stellar
+
+We collaborate closely with the Stellar Development Foundation to provide high-quality developer resources:
+- **Joint Blog Posts**: Watch for our technical deep dives on the [official Stellar blog](https://stellar.org/blog).
+- **Co-hosted Events**: We regularly participate in Stellar community calls and hackathons.
+- **Shared Examples**: Selected cookbook examples are featured in the [Soroban documentation](https://developers.stellar.org/docs/smart-contracts).
+- **Cross-linking**: We ensure our patterns align directly with Stellar's recommended practices.
+- **Regular Sync Meetings**: We align our roadmap with upcoming Soroban releases to provide up-to-date content.
+## Community & Integration
+
+The Soroban Cookbook is integrated into the official Stellar Developer ecosystem as a featured community resource. We work in tandem with the Stellar Development Foundation (SDF) and community developers to ensure our examples and guides align with the official documentation and best practices.
+
+### 🌐 Official Integrations
+- **Stellar Developer Docs:** The cookbook is featured in the official [Stellar Smart Contract Documentation](https://developers.stellar.org/docs/smart-contracts) under community-driven developer resources.
+- **Stellar Community Discord:** Find us in the `#soroban` channels. We coordinate examples and help troubleshoot issues with fellow developers.
+
+### 🗺️ Contributor Roadmap & Ecosystem Alignment
+We maintain an active [Roadmap](./ROADMAP.md) detailing planned expansions, DeFi templates, governance structures, and security validation procedures. Contributions to the cookbook are recognized through the Stellar Developer community incentives, and all submissions undergo a thorough review process detailed in our [Contributing Guidelines](./CONTRIBUTING.md).
 
 ## Additional Resources
 

@@ -4,7 +4,9 @@
 
 #![no_std]
 
-use soroban_sdk::{contract, contracterror, contractimpl, contracttype, vec, vec::Vec, Address, Env, Symbol, symbol_short};
+use soroban_sdk::{
+    contract, contracterror, contractimpl, contracttype, symbol_short, Address, Env, Symbol, Vec,
+};
 
 #[contracttype]
 #[derive(Clone)]
@@ -32,7 +34,7 @@ pub enum TokenError {
 }
 
 const EVENT_TRANSFER: Symbol = symbol_short!("transfer");
-const EVENT_BATCH_TRANSFER: Symbol = symbol_short!("batch_transfer");
+const EVENT_BATCH_TRANSFER: Symbol = symbol_short!("batch_xfr");
 
 #[contract]
 pub struct OptimizedToken;
@@ -46,18 +48,17 @@ impl OptimizedToken {
         }
 
         require_positive(total_supply)?;
-        env.storage().persistent().set(&DataKey::Balance(owner.clone()), &total_supply);
-        env.storage().instance().set(&DataKey::TotalSupply, &total_supply);
+        env.storage()
+            .persistent()
+            .set(&DataKey::Balance(owner.clone()), &total_supply);
+        env.storage()
+            .instance()
+            .set(&DataKey::TotalSupply, &total_supply);
         Ok(())
     }
 
     /// Transfer a single amount from one account to another.
-    pub fn transfer(
-        env: Env,
-        from: Address,
-        to: Address,
-        amount: i128,
-    ) -> Result<(), TokenError> {
+    pub fn transfer(env: Env, from: Address, to: Address, amount: i128) -> Result<(), TokenError> {
         require_positive(amount)?;
         from.require_auth();
 
@@ -76,7 +77,8 @@ impl OptimizedToken {
         env.storage()
             .persistent()
             .set(&DataKey::Balance(to.clone()), &to_balance);
-        env.events().publish((EVENT_TRANSFER, from.clone(), to.clone()), &amount);
+        env.events()
+            .publish((EVENT_TRANSFER, from.clone(), to.clone()), amount);
 
         Ok(())
     }
@@ -101,18 +103,17 @@ impl OptimizedToken {
                 .checked_add(payment.amount)
                 .ok_or(TokenError::ArithmeticOverflow)?;
 
-            env.storage()
-                .persistent()
-                .set(&DataKey::Balance(from.clone()), &(from_balance - payment.amount));
+            env.storage().persistent().set(
+                &DataKey::Balance(from.clone()),
+                &(from_balance - payment.amount),
+            );
             env.storage()
                 .persistent()
                 .set(&DataKey::Balance(payment.recipient.clone()), &to_balance);
         }
 
-        env.events().publish(
-            (EVENT_BATCH_TRANSFER, from.clone()),
-            &(payments.len() as i128),
-        );
+        env.events()
+            .publish((EVENT_BATCH_TRANSFER, from.clone()), payments.len() as i128);
         Ok(())
     }
 
@@ -130,9 +131,10 @@ impl OptimizedToken {
             return Err(TokenError::InsufficientBalance);
         }
 
-        env.storage()
-            .persistent()
-            .set(&DataKey::Balance(from.clone()), &(from_balance - total_amount));
+        env.storage().persistent().set(
+            &DataKey::Balance(from.clone()),
+            &(from_balance - total_amount),
+        );
 
         for payment in payments.iter() {
             require_positive(payment.amount)?;
@@ -144,10 +146,8 @@ impl OptimizedToken {
                 .set(&DataKey::Balance(payment.recipient.clone()), &to_balance);
         }
 
-        env.events().publish(
-            (EVENT_BATCH_TRANSFER, from.clone()),
-            &(payments.len() as i128),
-        );
+        env.events()
+            .publish((EVENT_BATCH_TRANSFER, from.clone()), payments.len() as i128);
         Ok(())
     }
 

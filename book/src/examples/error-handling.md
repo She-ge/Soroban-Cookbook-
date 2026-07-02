@@ -44,13 +44,9 @@ pub fn transfer(env: Env, amount: u64) -> Result<(), Error> {
 - Complex multi-check ops
 - `cargo test -p custom-errors`
 
-**[Panic vs Result: 05-error-handling](../examples/basics/05-error-handling/)**
+**[Result patterns: 05-error-handling](../examples/basics/05-error-handling/)**
 - Good/bad patterns
 - `transfer()` vs `transfer_panic()`
-
-**[Foundational: 12-error-handling](../examples/basics/12-error-handling/)**
-- Clean implementation of `Result` vs `panic!`
-- Explicit error codes and division logic
 - Comprehensive `try_` client testing
 
 ## 🧪 Testing Errors

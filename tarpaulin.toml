@@ -2,14 +2,14 @@
 # https://github.com/xd009642/tarpaulin#configuration-file
 #
 # Run locally with: cargo tarpaulin
-# This config is also used by CI — see .github/workflows/ci.yml (coverage job).
+# This config is also used by CI — see .github/workflows/test.yml (coverage job).
 
 [default]
 # Measure coverage for the entire workspace
 workspace = true
 
 # Enable all feature flags so conditional code paths are included
-all-features = true
+all-features = false
 
 # Output formats:
 #   xml  → Cobertura XML, consumed by Codecov

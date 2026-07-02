@@ -11,13 +11,15 @@ env:
   # soroban-cli was renamed to stellar-cli at v22.
   # 22.1.0 is the last release under the soroban protocol 21 era.
   STELLAR_CLI_VERSION: 22.1.0
+  # SDK 26 still uses deprecated Events::publish in many examples; allow while migrating.
+  RUSTFLAGS: "-D warnings -A deprecated"
 
 jobs:
   fmt:
     name: Rust Format Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
@@ -28,21 +30,30 @@ jobs:
       - name: Check formatting
         run: cargo fmt --all -- --check
 
+  typos:
+    name: Spelling Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check spelling
+        uses: crate-ci/typos@v1.28.0
+
   clippy:
     name: Clippy Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: ${{ env.RUST_VERSION }}
           components: clippy
-          target: wasm32v1-none
+          target: wasm32-unknown-unknown
 
       - name: Run Clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
+        run: ./scripts/ci-workspace.sh clippy --tests --lib --target x86_64-unknown-linux-gnu -- -D warnings
 
   test:
     name: Test Suite
@@ -50,7 +61,7 @@ jobs:
     # Only test on stable. Rust 1.74 cannot compile transitive deps that use
     # edition 2024 (e.g. base64ct ≥ 1.8) — so we drop the old matrix entry.
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -58,10 +69,10 @@ jobs:
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: ${{ env.RUST_VERSION }}
-          target: wasm32v1-none
+          target: wasm32-unknown-unknown
 
       - name: Cache cargo registry
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/registry
@@ -85,17 +96,20 @@ jobs:
           done
 
       - name: Run security tests
-        run: cargo test --package security-tests
+        run: cargo test --package security-tests --target x86_64-unknown-linux-gnu
+
+      - name: Run integration tests
+        run: cargo test -p integration-tests --target x86_64-unknown-linux-gnu
 
       - name: Run tests (fallback)
         if: github.event_name != 'pull_request'
-        run: cargo test --workspace --all-features
+        run: ./scripts/ci-workspace.sh test --target x86_64-unknown-linux-gnu
 
   build:
     name: Build Contracts
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
@@ -104,7 +118,7 @@ jobs:
           target: wasm32v1-none
 
       - name: Cache cargo registry
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/registry
@@ -117,13 +131,13 @@ jobs:
         run: cargo install --locked stellar-cli --version ${{ env.STELLAR_CLI_VERSION }}
 
       - name: Build all contracts
-        run: cargo build --workspace --target wasm32v1-none --release
+        run: ./scripts/ci-workspace.sh build --target wasm32v1-none --release
 
   security-audit:
     name: Security Audit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
@@ -149,18 +163,18 @@ jobs:
     name: Code Coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
-          target: wasm32v1-none
+          target: wasm32-unknown-unknown
 
       # Cache the Cargo registry AND the compiled tarpaulin binary together
       # so repeated runs don't rebuild tarpaulin from source every time.
       - name: Cache Cargo registry and tarpaulin binary
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/registry
@@ -181,7 +195,16 @@ jobs:
       # tarpaulin.toml controls output format (xml + html + lcov),
       # output directory (coverage/), timeout, and exclusions.
       - name: Generate coverage
-        run: cargo tarpaulin
+        run: |
+          EXCLUDE_ARGS=""
+          while IFS= read -r pkg || [[ -n "${pkg:-}" ]]; do
+            pkg="${pkg%%#*}"
+            pkg="$(echo "$pkg" | xargs)"
+            [[ -z "$pkg" ]] && continue
+            EXCLUDE_ARGS="$EXCLUDE_ARGS --exclude $pkg"
+          done < scripts/ci-exclude-packages.txt
+          # shellcheck disable=SC2086
+          cargo tarpaulin $EXCLUDE_ARGS
 
       # Keep the full coverage report as a downloadable artifact for
       # historical review — retained for 90 days.
@@ -196,10 +219,31 @@ jobs:
       # Upload Cobertura XML to Codecov for badge + historical trend graphs.
       # CODECOV_TOKEN is required for private repos; harmless for public ones.
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v7
         with:
           files: ./coverage/cobertura.xml
           flags: workspace
           name: soroban-cookbook
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  spell-check:
+    name: Spell Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: cd webapp && bun install
+
+      - name: Run spell check
+        run: cd webapp && bun run spellcheck

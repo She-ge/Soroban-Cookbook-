@@ -7,9 +7,23 @@
 #![no_std]
 
 use soroban_sdk::{
-    contract, contracterror, contractimpl, contracttype, symbol_short, token::TokenClient, Address,
-    Env, Symbol,
+    contract, contracterror, contractevent, contractimpl, contracttype, token::TokenClient,
+    Address, Env,
 };
+
+#[contractevent]
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct WrapEvent {
+    pub user: Address,
+    pub amount: i128,
+}
+
+#[contractevent]
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct UnwrapEvent {
+    pub user: Address,
+    pub amount: i128,
+}
 
 #[contracttype]
 #[derive(Clone)]
@@ -40,9 +54,6 @@ pub enum WrapperError {
     ArithmeticOverflow = 5,
     NotFullyBacked = 6,
 }
-
-const EVENT_WRAP: Symbol = symbol_short!("wrap");
-const EVENT_UNWRAP: Symbol = symbol_short!("unwrap");
 
 #[contract]
 pub struct TokenWrapper;
@@ -88,7 +99,8 @@ impl TokenWrapper {
         let wrapper = env.current_contract_address();
         TokenClient::new(&env, &underlying).transfer(&user, &wrapper, &amount);
 
-        env.events().publish((EVENT_WRAP, user), amount);
+        WrapEvent { user, amount }.publish(&env);
+
         Ok(new_balance)
     }
 
@@ -121,7 +133,8 @@ impl TokenWrapper {
 
         TokenClient::new(&env, &underlying).transfer(&wrapper, &user, &amount);
 
-        env.events().publish((EVENT_UNWRAP, user), amount);
+        UnwrapEvent { user, amount }.publish(&env);
+
         Ok(new_balance)
     }
 

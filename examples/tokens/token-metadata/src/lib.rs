@@ -178,9 +178,7 @@ impl TokenMetadataContract {
         require_non_empty(&new_symbol)?;
 
         env.storage().instance().set(&DataKey::Name, &new_name);
-        env.storage()
-            .instance()
-            .set(&DataKey::Symbol, &new_symbol);
+        env.storage().instance().set(&DataKey::Symbol, &new_symbol);
         env.storage().instance().set(&DataKey::Uri, &new_uri);
 
         env.events().publish(
@@ -337,7 +335,7 @@ fn require_positive(amount: i128) -> Result<(), MetadataError> {
 }
 
 fn require_non_empty(s: &String) -> Result<(), MetadataError> {
-    if s.len() == 0 {
+    if s.is_empty() {
         Err(MetadataError::EmptyString)
     } else {
         Ok(())

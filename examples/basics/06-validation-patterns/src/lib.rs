@@ -475,7 +475,7 @@ impl ValidationContract {
             .set(&DataKey::Balance(from.clone()), &(from_balance - amount));
         env.storage()
             .persistent()
-            .set(&DataKey::Balance(to), &(to_balance + amount));
+            .set(&DataKey::Balance(to.clone()), &(to_balance + amount));
 
         // Update last action timestamp
         env.storage()

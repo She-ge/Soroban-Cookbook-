@@ -1,6 +1,8 @@
 #![no_std]
 
-use soroban_sdk::{contract, contracterror, contractimpl, contracttype, symbol_short, Address, Env, String, Symbol};
+use soroban_sdk::{
+    contract, contracterror, contractimpl, contracttype, symbol_short, Address, Env, String, Symbol,
+};
 
 #[contracttype]
 #[derive(Clone)]
@@ -20,6 +22,12 @@ pub struct TransferEventData {
     pub amount: i128,
 }
 
+#[contracttype]
+#[derive(Clone)]
+pub struct ApprovalEventData {
+    pub amount: i128,
+}
+
 #[contracterror]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, PartialOrd, Ord)]
 #[repr(u32)]
@@ -35,6 +43,7 @@ pub enum TokenError {
 
 const EVENT_NAMESPACE: Symbol = symbol_short!("events");
 const EVENT_TRANSFER: Symbol = symbol_short!("transfer");
+const EVENT_APPROVE: Symbol = symbol_short!("approve");
 
 #[contract]
 pub struct Sep41Token;
@@ -61,7 +70,9 @@ impl Sep41Token {
         env.storage().instance().set(&DataKey::Name, &name);
         env.storage().instance().set(&DataKey::Symbol, &symbol);
         env.storage().instance().set(&DataKey::Decimals, &decimals);
-        env.storage().instance().set(&DataKey::TotalSupply, &initial_supply);
+        env.storage()
+            .instance()
+            .set(&DataKey::TotalSupply, &initial_supply);
         env.storage()
             .persistent()
             .set(&DataKey::Balance(admin.clone()), &initial_supply);
@@ -70,12 +81,7 @@ impl Sep41Token {
     }
 
     /// Transfer tokens from one account to another.
-    pub fn transfer(
-        env: Env,
-        from: Address,
-        to: Address,
-        amount: i128,
-    ) -> Result<(), TokenError> {
+    pub fn transfer(env: Env, from: Address, to: Address, amount: i128) -> Result<(), TokenError> {
         from.require_auth();
         ensure_initialized(&env)?;
         require_positive(amount)?;
@@ -116,7 +122,9 @@ impl Sep41Token {
 
         env.storage()
             .persistent()
-            .set(&DataKey::Allowance(owner, spender), &amount);
+            .set(&DataKey::Allowance(owner.clone(), spender.clone()), &amount);
+
+        publish_approval(&env, owner, spender, amount);
 
         Ok(())
     }
@@ -148,9 +156,10 @@ impl Sep41Token {
             .checked_add(amount)
             .ok_or(TokenError::ArithmeticOverflow)?;
 
-        env.storage()
-            .persistent()
-            .set(&DataKey::Allowance(owner.clone(), spender.clone()), &(allowance - amount));
+        env.storage().persistent().set(
+            &DataKey::Allowance(owner.clone(), spender.clone()),
+            &(allowance - amount),
+        );
         env.storage()
             .persistent()
             .set(&DataKey::Balance(owner.clone()), &(owner_balance - amount));
@@ -199,12 +208,7 @@ impl Sep41Token {
     }
 
     /// Mint new tokens to an account. Only admin may mint.
-    pub fn mint(
-        env: Env,
-        admin: Address,
-        to: Address,
-        amount: i128,
-    ) -> Result<i128, TokenError> {
+    pub fn mint(env: Env, admin: Address, to: Address, amount: i128) -> Result<i128, TokenError> {
         admin.require_auth();
         if admin != read_admin(&env)? {
             return Err(TokenError::Unauthorized);
@@ -223,7 +227,9 @@ impl Sep41Token {
         env.storage()
             .persistent()
             .set(&DataKey::Balance(to.clone()), &new_to_balance);
-        env.storage().instance().set(&DataKey::TotalSupply, &new_supply);
+        env.storage()
+            .instance()
+            .set(&DataKey::TotalSupply, &new_supply);
 
         publish_transfer(&env, env.current_contract_address(), to, amount);
         Ok(new_to_balance)
@@ -247,7 +253,9 @@ impl Sep41Token {
         env.storage()
             .persistent()
             .set(&DataKey::Balance(owner.clone()), &new_owner_balance);
-        env.storage().instance().set(&DataKey::TotalSupply, &new_supply);
+        env.storage()
+            .instance()
+            .set(&DataKey::TotalSupply, &new_supply);
 
         publish_transfer(&env, owner, env.current_contract_address(), amount);
         Ok(new_owner_balance)
@@ -258,6 +266,13 @@ fn publish_transfer(env: &Env, from: Address, to: Address, amount: i128) {
     env.events().publish(
         (EVENT_NAMESPACE, EVENT_TRANSFER, from, to),
         TransferEventData { amount },
+    );
+}
+
+fn publish_approval(env: &Env, owner: Address, spender: Address, amount: i128) {
+    env.events().publish(
+        (EVENT_NAMESPACE, EVENT_APPROVE, owner, spender),
+        ApprovalEventData { amount },
     );
 }
 
@@ -305,7 +320,10 @@ fn read_decimals(env: &Env) -> Result<u32, TokenError> {
 }
 
 fn read_total_supply(env: &Env) -> i128 {
-    env.storage().instance().get(&DataKey::TotalSupply).unwrap_or(0)
+    env.storage()
+        .instance()
+        .get(&DataKey::TotalSupply)
+        .unwrap_or(0)
 }
 
 fn read_balance(env: &Env, user: &Address) -> i128 {

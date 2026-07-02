@@ -46,7 +46,7 @@ impl PriorityQueueContract {
         let last = heap.pop_back().unwrap();
 
         if heap.len() > 0 {
-            heap.set(0, &last);
+            heap.set(0, last);
             Self::sift_down(&mut heap, 0);
         }
 
@@ -96,10 +96,13 @@ impl PriorityQueueContract {
             let right = 2 * index + 2;
             let mut largest = index;
 
-            if left < len && heap.get(left).unwrap().priority > heap.get(largest).unwrap().priority {
+            if left < len && heap.get(left).unwrap().priority > heap.get(largest).unwrap().priority
+            {
                 largest = left;
             }
-            if right < len && heap.get(right).unwrap().priority > heap.get(largest).unwrap().priority {
+            if right < len
+                && heap.get(right).unwrap().priority > heap.get(largest).unwrap().priority
+            {
                 largest = right;
             }
             if largest == index {
@@ -113,7 +116,7 @@ impl PriorityQueueContract {
     fn swap(heap: &mut Vec<HeapEntry>, a: u32, b: u32) {
         let a_val = heap.get(a).unwrap();
         let b_val = heap.get(b).unwrap();
-        heap.set(a, &b_val);
-        heap.set(b, &a_val);
+        heap.set(a, b_val);
+        heap.set(b, a_val);
     }
 }

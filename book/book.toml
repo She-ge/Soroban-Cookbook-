@@ -14,15 +14,17 @@ preferred-dark-theme = "navy"
 git-repository-url = "https://github.com/Soroban-Cookbook/Soroban-Cookbook"
 edit-url-template = "https://github.com/Soroban-Cookbook/Soroban-Cookbook/edit/main/{path}"
 
-# theme = "css/navy.css"
-copy-button = { enable = true }
-
-[output.html.table-of-contents]
-default-placement = "left"
-recursive-toc = true
+[output.html.code]
 
 [output.html.search]
 enable = true
-limit-results = 25
-use-boolean-retrieval = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+copy-js = true
 

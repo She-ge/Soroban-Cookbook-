@@ -16,7 +16,8 @@ fn test_standard_initialize() {
     let standard =
         StandardTokenOpsClient::new(&env, &env.register_contract(None, StandardTokenOps));
 
-    standard.initialize(&underlying);
+    let result = standard.try_standard_initialize(&underlying);
+    assert!(result.is_ok());
 }
 
 #[test]
@@ -30,10 +31,10 @@ fn test_standard_wrap_and_balance() {
     let standard_id = env.register_contract(None, StandardTokenOps);
     let standard = StandardTokenOpsClient::new(&env, &standard_id);
 
-    standard.initialize(&underlying);
+    standard.standard_initialize(&underlying);
 
     // Test balance retrieval
-    let balance = standard.balance(&user);
+    let balance = standard.standard_balance(&user);
     assert_eq!(balance, 0);
 }
 
@@ -50,7 +51,8 @@ fn test_optimized_initialize() {
     let optimized_id = env.register_contract(None, OptimizedTokenOps);
     let optimized = OptimizedTokenOpsClient::new(&env, &optimized_id);
 
-    optimized.initialize(&underlying);
+    let result = optimized.try_initialize(&underlying);
+    assert!(result.is_ok());
 }
 
 #[test]

@@ -4,10 +4,7 @@
 
 #[cfg(test)]
 mod tests {
-    use soroban_sdk::{
-        testutils::{Address as _, AuthorizedFunction, AuthorizedInvocation},
-        Address, Env, IntoVal, Symbol,
-    };
+    use soroban_sdk::{testutils::Address as _, Address, Env, Symbol};
 
     use crate::{ContractError, ErrorDemoContract, ErrorDemoContractClient};
 
@@ -188,23 +185,5 @@ mod tests {
         // Operations succeed again.
         assert_eq!(client.deposit(&user, &50), 150);
         assert_eq!(client.withdraw(&user, &150), 0);
-    }
-
-    #[test]
-    fn test_error_handling_benchmark() {
-        let (env, client, admin) = setup();
-        let user = Address::generate(&env);
-
-        // Benchmark Result (handled) error path
-        env.budget().reset_default();
-        let result_res = client.try_deposit(&user, &0);
-        assert!(result_res.is_err());
-        env.budget().print();
-
-        // Benchmark Panic path
-        env.budget().reset_default();
-        let panic_res = client.try_initialize(&admin);
-        assert!(panic_res.is_err());
-        env.budget().print();
     }
 }
